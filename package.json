@@ -1,0 +1,56 @@
+{
+  "name": "agency",
+  "private": false,
+  "version": "0.1.0",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "author": {
+    "name": "henry",
+    "email": "fopdark@gmail.com"
+  },
+  "dependencies": {
+    "@ant-design/react-slick": "^1.1.2",
+    "@fancyapps/ui": "^5.0.36",
+    "@types/node": "^20.14.2",
+    "antd": "^5.14.1",
+    "apexcharts": "^3.41.0",
+    "axios": "^1.6.7",
+    "dayjs": "^1.11.11",
+    "flatpickr": "^4.6.13",
+    "headlessui": "^0.0.0",
+    "i18next": "^23.9.0",
+    "i18next-http-backend": "^2.5.0",
+    "jsvectormap": "^1.5.3",
+    "match-sorter": "^6.3.1",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.4.1",
+    "react-dom": "^18.2.0",
+    "react-hot-toast": "^2.4.1",
+    "react-i18next": "^14.0.5",
+    "react-icons": "^4.10.1",
+    "react-intersection-observer": "^9.10.3",
+    "react-router-dom": "^6.14.2",
+    "react-toastify": "^9.1.3",
+    "slick-carousel": "^1.8.1",
+    "sort-by": "^0.0.2",
+    "uuid": "^10.0.0",
+    "vite-plugin-svgr": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.17",
+    "@types/react-dom": "^18.2.7",
+    "@types/uuid": "^9.0.8",
+    "@vitejs/plugin-react": "^4.0.3",
+    "autoprefixer": "^10.4.14",
+    "file-loader": "^6.2.0",
+    "postcss": "^8.4.27",
+    "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.4.1",
+    "tailwindcss": "^3.4.1",
+    "vite": "^4.4.7",
+    "webpack": "^5.88.2"
+  }
+}

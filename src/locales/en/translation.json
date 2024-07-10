@@ -1,0 +1,97 @@
+{
+  "button": {
+    "login": "Login",
+    "logout": "Logout",
+    "reset": "Reset",
+    "search": "Search",
+    "ok": "Ok",
+    "cancel": "Cancel",
+    "detail": "Detail"
+  },
+  "toast": {
+    "success": "Success",
+    "error": "Error"
+  },
+  "language": "Language",
+  "login": {
+    "username": {
+      "placeholder": "Username",
+      "required": "Please input your email"
+    },
+    "password": {
+      "placeholder": "Password",
+      "required": "Please input your password"
+    }
+  },
+  "user": {
+    "filter": {
+      "keyword": {
+        "label": "Keyword",
+        "placeholder": "Name, Email, Register Code"
+      },
+      "registerDate": {
+        "label": "Register Date",
+        "placeholder1": "Start Date",
+        "placeholder2": "End Date"
+      },
+      "age": {
+        "label": "Age"
+      },
+      "gender": {
+        "label": "Gender"
+      },
+      "field": {
+        "label": "Field"
+      },
+      "approveStatus": {
+        "label": "Approve Status"
+      },
+      "entertainmentCompanies": {
+        "label": "Entertainment Companies"
+      },
+      "nation": {
+        "label": "Nation"
+      },
+      "evaluatedStatus": {
+        "label": "Evaluated Status"
+      }
+    },
+    "summary": {
+      "totalApplications": "Total Applications",
+      "totalMale": "Total Male",
+      "totalFemale": "Total Female",
+      "totalApproved": "Total Approved",
+      "totalFinalApproved": "Total Final Approved",
+      "totalRejected": "Total Rejected",
+      "totalEvaluatedCard": "Total Evaluated Card"
+    },
+    "column": {
+      "registerCode": "Register Code",
+      "avatar": "Avatar",
+      "email": "Email",
+      "name": "Name",
+      "gender": "Gender",
+      "nation": "Nation",
+      "birthday": "Birthday",
+      "height": "Height",
+      "weight": "Weight",
+      "applyField": "Apply Field",
+      "totalCompanyApply": "Total Company Apply",
+      "totalFiles": "Total Files",
+      "createdAt": "Created At",
+      "updatedAt": "Updated At",
+      "approveStatus": "Approve Status",
+      "action": "Action",
+      "phone": "Phone"
+    },
+    "auditionInformation": "Audition Information",
+    "applyFor": "Apply For",
+    "entertainmentCompany": "Entertainment Company",
+    "field": "Field",
+    "aboutAudition": "About Audition",
+    "introduce": "Introduce Video",
+    "main": "Main Video",
+    "sub": "Sub Video"
+  },
+  "user_not_found": "The user information does not exist."
+}

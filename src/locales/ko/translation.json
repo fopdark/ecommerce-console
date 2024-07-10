@@ -1,0 +1,97 @@
+{
+  "button": {
+    "login": "로그인",
+    "logout": "로그아웃",
+    "reset": "재설정",
+    "search": "검색",
+    "ok": "확인",
+    "cancel": "취소",
+    "detail": "상세"
+  },
+  "toast": {
+    "success": "성공",
+    "error": "오류"
+  },
+  "language": "언어",
+  "login": {
+    "username": {
+      "placeholder": "이름",
+      "required": "이메일을 입력하세요"
+    },
+    "password": {
+      "placeholder": "비밀번호",
+      "required": "비밀번호 입력하세요"
+    }
+  },
+  "user": {
+    "filter": {
+      "keyword": {
+        "label": "키워드",
+        "placeholder": "이름, 이메일, 신청 코드"
+      },
+      "registerDate": {
+        "label": "신청일",
+        "placeholder1": "시작일",
+        "placeholder2": "종료일"
+      },
+      "age": {
+        "label": "나이"
+      },
+      "gender": {
+        "label": "성별"
+      },
+      "field": {
+        "label": "필드"
+      },
+      "approveStatus": {
+        "label": "승인"
+      },
+      "entertainmentCompanies": {
+        "label": "엔터테인먼트 회사"
+      },
+      "nation": {
+        "label": "국적"
+      },
+      "evaluatedStatus": {
+        "label": "Evaluated Status"
+      }
+    },
+    "summary": {
+      "totalApplications": "총 지원자",
+      "totalMale": "총 남성",
+      "totalFemale": "총 여성",
+      "totalApproved": "승인된 지원자",
+      "totalFinalApproved": "최종 승인된 지원자",
+      "totalRejected": "거절된 지원자",
+      "totalEvaluatedCard": "총 평가 카드"
+    },
+    "column": {
+      "registerCode": "신청 코드",
+      "avatar": "프로필 사진",
+      "email": "이메일",
+      "name": "이름",
+      "gender": "성별",
+      "nation": "국적",
+      "birthday": "생년월일",
+      "height": "신장",
+      "weight": "체중",
+      "applyField": "신청 필드",
+      "totalCompanyApply": "총 회사",
+      "totalFiles": "총 파일",
+      "createdAt": "생성일",
+      "updatedAt": "갱신일",
+      "approveStatus": "승인",
+      "action": "행동",
+      "phone": "전화번호"
+    },
+    "auditionInformation": "오디션 정보",
+    "applyFor": "지원 분야",
+    "entertainmentCompany": "엔터테인먼트 회사",
+    "field": "분야",
+    "aboutAudition": "오디션",
+    "introduce": "자기소개",
+    "main": "메인 비디오",
+    "sub": "서브 비디오"
+  },
+  "user_not_found": "사용자 정보가 존재하지 않습니다."
+}

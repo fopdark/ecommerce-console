@@ -1,0 +1,97 @@
+{
+  "button": {
+    "login": "Login JA",
+    "logout": "Logout JA",
+    "reset": "Reset JA",
+    "search": "Search JA",
+    "ok": "Ok JA",
+    "cancel": "Cancel JA",
+    "detail": "Detail JA"
+  },
+  "toast": {
+    "success": "Success JA",
+    "error": "Error JA"
+  },
+  "language": "Language JA",
+  "login": {
+    "username": {
+      "placeholder": "Username JA",
+      "required": "Please input your email JA"
+    },
+    "password": {
+      "placeholder": "Password JA",
+      "required": "Please input your password JA"
+    }
+  },
+  "user": {
+    "filter": {
+      "keyword": {
+        "label": "Keyword JA",
+        "placeholder": "Name, Email, Register Code JA"
+      },
+      "registerDate": {
+        "label": "Register Date JA",
+        "placeholder1": "Start Date JA",
+        "placeholder2": "End Date JA"
+      },
+      "age": {
+        "label": "Age JA"
+      },
+      "gender": {
+        "label": "Gender JA"
+      },
+      "field": {
+        "label": "Field JA"
+      },
+      "approveStatus": {
+        "label": "Approve Status JA"
+      },
+      "entertainmentCompanies": {
+        "label": "Entertainment Companies JA"
+      },
+      "nation": {
+        "label": "Nation JA"
+      },
+      "evaluatedStatus": {
+        "label": "Evaluated Status JA"
+      }
+    },
+    "summary": {
+      "totalApplications": "Total Applications JA",
+      "totalMale": "Total Male JA",
+      "totalFemale": "Total Female JA",
+      "totalApproved": "Total Approved JA",
+      "totalFinalApproved": "Total Final Approved JA",
+      "totalRejected": "Total Rejected JA",
+      "totalEvaluatedCard": "Total Evaluated Card JA"
+    },
+    "column": {
+      "registerCode": "Register Code JA",
+      "avatar": "Avatar JA",
+      "email": "Email JA",
+      "name": "Name JA",
+      "gender": "Gender JA",
+      "nation": "Nation JA",
+      "birthday": "Birthday JA",
+      "height": "Height JA",
+      "weight": "Weight JA",
+      "applyField": "Apply Field JA",
+      "totalCompanyApply": "Total Company Apply JA",
+      "totalFiles": "Total Files JA",
+      "createdAt": "Created At JA",
+      "updatedAt": "Updated At JA",
+      "approveStatus": "Approve Status JA",
+      "action": "Action JA",
+      "phone": "Phone JA"
+    },
+    "auditionInformation": "Audition Information JA",
+    "applyFor": "Apply For JA",
+    "entertainmentCompany": "Entertainment Company JA",
+    "field": "Field JA",
+    "aboutAudition": "About Audition JA",
+    "introduce": "Introduce JA",
+    "main": "Main JA",
+    "sub": "Sub JA"
+  },
+  "user_not_found": "ユーザー情報が存在しません。"
+}
