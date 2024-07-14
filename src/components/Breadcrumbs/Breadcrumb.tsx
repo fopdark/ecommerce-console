@@ -10,7 +10,7 @@ const Breadcrumb = ({ pageName }: BreadcrumbProps) => {
       </h2>
 
       <nav>
-        <ol className="flex items-center gap-2 list-none">
+        <ol className="flex items-center gap-2">
           <li>
             <Link className="font-medium" to="/">
               Dashboard /

@@ -117,9 +117,7 @@ span.flatpickr-weekday,
 }
 .flatpickr-day.inRange {
   @apply dark:!shadow-7;
-  box-shadow:
-    -5px 0 0 #eff4fb,
-    5px 0 0 #eff4fb;
+  box-shadow: -5px 0 0 #EFF4FB, 5px 0 0 #EFF4FB;
 }
 .flatpickr-day.inRange,
 .flatpickr-day.prevMonthDay.inRange,
@@ -214,9 +212,4 @@ span.flatpickr-weekday,
 
 [x-cloak] {
   display: none !important;
-}
-
-p, a, span, h1, h2, h3, h4, h5, li, b {
-  line-break: strict;
-  word-break: keep-all;
 }
