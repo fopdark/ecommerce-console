@@ -1,5 +1,6 @@
 import Breadcrumb from '../components/Breadcrumbs/Breadcrumb';
 import userThree from '../images/user/user-03.png';
+import ProfileForm from './Profile/Form';
 
 const Settings = () => {
   return (
@@ -7,7 +8,9 @@ const Settings = () => {
       <div className="mx-auto max-w-270">
         <Breadcrumb pageName="Settings" />
 
-        <div className="grid grid-cols-5 gap-8">
+        <ProfileForm/>
+
+        {/* <div className="grid grid-cols-5 gap-8">
           <div className="col-span-5 xl:col-span-3">
             <div className="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
               <div className="border-b border-stroke py-4 px-7 dark:border-strokedark">
@@ -302,7 +305,7 @@ const Settings = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

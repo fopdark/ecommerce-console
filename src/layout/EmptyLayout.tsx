@@ -1,29 +1,22 @@
 import React, { useState, ReactNode } from 'react';
 import Header from '../components/Header/index';
 import Sidebar from '../components/Sidebar/index';
-import { useLocation } from 'react-router-dom';
 
-const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
+const EmptyLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const location = useLocation();
 
-  const publicUrl = ['/auth/signin'];
   return (
     <div className="dark:bg-boxdark-2 dark:text-bodydark">
       {/* <!-- ===== Page Wrapper Start ===== --> */}
       <div className="flex h-screen overflow-hidden">
         {/* <!-- ===== Sidebar Start ===== --> */}
-        {!!!publicUrl.includes(location.pathname) && (
-          <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        )}
+        <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         {/* <!-- ===== Sidebar End ===== --> */}
 
         {/* <!-- ===== Content Area Start ===== --> */}
         <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
           {/* <!-- ===== Header Start ===== --> */}
-          {!!!publicUrl.includes(location.pathname) && (
-            <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-          )}
+          <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           {/* <!-- ===== Header End ===== --> */}
 
           {/* <!-- ===== Main Content Start ===== --> */}
@@ -41,4 +34,4 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   );
 };
 
-export default DefaultLayout;
+export default EmptyLayout;

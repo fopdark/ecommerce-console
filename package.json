@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "start": "vite preview",
     "preview": "vite preview"
   },
   "author": {
@@ -14,8 +15,15 @@
     "url": "https://tailadmin.com"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.4.0",
+    "@ckeditor/ckeditor5-react": "^8.0.0",
+    "antd": "^5.19.3",
     "apexcharts": "^3.41.0",
+    "axios": "^1.7.3",
+    "ckeditor5": "^42.0.1",
+    "dayjs": "^1.11.12",
     "flatpickr": "^4.6.13",
+    "formik": "^2.4.6",
     "headlessui": "^0.0.0",
     "jsvectormap": "^1.5.3",
     "match-sorter": "^6.3.1",
@@ -26,7 +34,9 @@
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.14.2",
     "react-toastify": "^9.1.3",
-    "sort-by": "^0.0.2"
+    "sort-by": "^0.0.2",
+    "vite-plugin-svgr": "^4.2.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.17",

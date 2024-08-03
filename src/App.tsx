@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useEffect, useState } from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 
 import Loader from './common/Loader';
 import PageTitle from './components/PageTitle';
@@ -17,17 +17,35 @@ import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import DefaultLayout from './layout/DefaultLayout';
+import ProductCategory from './pages/Product/Category';
+import Customer from './pages/Customer';
+import ServiceLevel1 from './pages/Service/ServiceLevel1';
+import Service from './pages/Service';
+import { CommonContext } from './context/CommonContext';
 
 function App() {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { access_token, handleSetAccessToken, handleSetUser } =
+    useContext(CommonContext);
+  const tokenLocalStorage = localStorage.getItem("access_token");
+  const userLocalStorage = localStorage.getItem("user");
+  // const { i18n } = useTranslation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
+    if (!tokenLocalStorage) {
+      navigate("/auth/signin");
+    }
+  }, [tokenLocalStorage]);
+
+  useEffect(() => {
+    tokenLocalStorage && handleSetAccessToken(tokenLocalStorage);
+    userLocalStorage && handleSetUser(JSON.parse(userLocalStorage));
   }, []);
 
   return loading ? (
@@ -41,6 +59,51 @@ function App() {
             <>
               <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <ECommerce />
+            </>
+          }
+        />
+        <Route
+          path="/product/category"
+          element={
+            <>
+              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <ProductCategory />
+            </>
+          }
+        />
+        <Route
+          path="/media"
+          element={
+            <>
+              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <ProductCategory />
+            </>
+          }
+        />
+        <Route
+          path="/customer/getInfo"
+          element={
+            <>
+              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <Customer />
+            </>
+          }
+        />
+        <Route
+          path="/service/level1"
+          element={
+            <>
+              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <ServiceLevel1 />
+            </>
+          }
+        />
+        <Route
+          path="/service/lists"
+          element={
+            <>
+              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <Service />
             </>
           }
         />
@@ -129,7 +192,7 @@ function App() {
           path="/auth/signin"
           element={
             <>
-              <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Signin | DiepKienHuy - Signin" />
               <SignIn />
             </>
           }

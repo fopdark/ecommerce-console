@@ -1,10 +1,21 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import ClickOutside from '../ClickOutside';
 import UserOne from '../../images/user/user-01.png';
+import { CommonContext } from '../../context/CommonContext';
 
 const DropdownUser = () => {
+  const navigate = useNavigate()
+  const { handleSetAccessToken, handleSetUser } =
+  useContext(CommonContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const logOut = () => {
+    localStorage.clear();
+    handleSetAccessToken(''),
+    handleSetUser(''),
+    navigate('/auth/signin');
+  }
 
   return (
     <ClickOutside onClick={() => setDropdownOpen(false)} className="relative">
@@ -119,7 +130,7 @@ const DropdownUser = () => {
               </Link>
             </li>
           </ul>
-          <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
+          <button className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base" onClick={logOut}>
             <svg
               className="fill-current"
               width="22"
