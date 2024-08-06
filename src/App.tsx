@@ -17,7 +17,7 @@ import Tables from './pages/Tables';
 import Alerts from './pages/UiElements/Alerts';
 import Buttons from './pages/UiElements/Buttons';
 import DefaultLayout from './layout/DefaultLayout';
-import ProductCategory from './pages/Product/Category';
+import ProductCategory from './pages/Product';
 import Customer from './pages/Customer';
 import ServiceLevel1 from './pages/Service/ServiceLevel1';
 import Service from './pages/Service';

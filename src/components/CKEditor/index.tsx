@@ -6,10 +6,10 @@ import {
   Essentials,
   Heading,
   Indent,
-  IndentBlock, 
+  IndentBlock,
   Italic,
   Link,
-  List, 
+  List,
   MediaEmbed,
   Paragraph,
   Table,
@@ -34,7 +34,11 @@ import {
 import 'ckeditor5/ckeditor5.css';
 import './style.css';
 
-export default function CKEditorComponent() {
+interface Props {
+  onChange: (values: any) => void;
+}
+
+export default function CKEditorComponent({ onChange }: Props) {
   return (
     <div>
       <CKEditor
@@ -98,15 +102,18 @@ export default function CKEditorComponent() {
           initialData: '',
           image: {
             toolbar: [
-                'imageTextAlternative',
-                'toggleImageCaption',
-                'imageStyle:inline',
-                'imageStyle:block',
-                'imageStyle:side'
-            ]
-        },
+              'imageTextAlternative',
+              'toggleImageCaption',
+              'imageStyle:inline',
+              'imageStyle:block',
+              'imageStyle:side',
+            ],
+          },
         }}
-        onChange={(event, editor) => console.log('editor', editor.getData())}
+        onChange={(event, editor) => {
+          onChange(editor.getData());
+          console.log('editor', editor.getData());
+        }}
       />
     </div>
   );

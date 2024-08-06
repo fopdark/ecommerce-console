@@ -2,34 +2,13 @@ import React, { useState } from 'react';
 import { Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
-const { Option } = Select;
-
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
 
-const tailLayout = {
-  wrapperCol: { offset: 8, span: 16 },
-};
-
 const CustomizeForm: React.FC = () => {
   const [form] = Form.useForm();
-
-  const onGenderChange = (value: string) => {
-    switch (value) {
-      case 'male':
-        form.setFieldsValue({ note: 'Hi, man!' });
-        break;
-      case 'female':
-        form.setFieldsValue({ note: 'Hi, lady!' });
-        break;
-      case 'other':
-        form.setFieldsValue({ note: 'Hi there!' });
-        break;
-      default:
-    }
-  };
 
   const onFinish = (values: any) => {
     console.log(values);
@@ -52,7 +31,6 @@ const CustomizeForm: React.FC = () => {
       form={form}
       name="control-hooks"
       onFinish={onFinish}
-      //   style={{ maxWidth: '80vw' }}
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 20 }}
       className="pt-5 max-h-[80vh] overflow-y-auto"
@@ -73,7 +51,6 @@ const CustomizeForm: React.FC = () => {
       </Form.Item>
       <Form.Item name="status" label="Trạng Thái" rules={[{ required: true }]}>
         <Select
-          // style={{ width: 150 }}
           onChange={handleChange}
           value={value}
           options={[

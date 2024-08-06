@@ -5,6 +5,9 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import CustomizeForm from '../../components/Customer/Form';
 import { getSliderList } from '../../services/slider';
+import { getCustomerRequestList } from '@/services/customer';
+import { ICustomerRequest } from '@/types/customer';
+import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 
 interface DataType {
   key: React.Key;
@@ -15,28 +18,30 @@ interface DataType {
   createdAt: any;
 }
 
-const data: DataType[] = [
-  {
-    key: 1,
-    index: 1,
-    name: 'John Brown',
-    phone: '0967199941',
-    createdAt: dayjs().toISOString(),
-    status: '0',
-  },
-];
+// const data: DataType[] = [
+//   {
+//     key: 1,
+//     index: 1,
+//     name: 'John Brown',
+//     phone: '0967199941',
+//     createdAt: dayjs().toISOString(),
+//     status: '0',
+//   },
+// ];
 
 const Customer: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [data, setData] = useState<ICustomerRequest[]>([]);
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
 
-  const columns: TableColumnsType<DataType> = [
+  const columns: TableColumnsType<ICustomerRequest> = [
     {
       title: 'STT',
       dataIndex: 'index',
       key: 'index',
+      width: 100,
       render: (value) => <Input value={value} />,
     },
     { title: 'Họ Tên', dataIndex: 'name', key: 'name' },
@@ -89,19 +94,22 @@ const Customer: React.FC = () => {
     },
   ];
 
-  const getList = async () => {
+  const handleGetList = async () => {
     try {
-      const res = await getSliderList({});
-      console.log("getSliderList",res);
-    } catch (error) {}
+      const res = await getCustomerRequestList({});
+      setData(res);
+    } catch (error) {
+      console.log('error', error);
+    }
   };
 
   useEffect(() => {
-    getList();
+    handleGetList();
   }, []);
 
   return (
     <>
+      <Breadcrumb pageName="Khách hàng" />
       <Modal
         title="Thông tin khách hàng"
         centered
@@ -130,14 +138,7 @@ const Customer: React.FC = () => {
       >
         <CustomizeForm />
       </Modal>
-      <Table
-        columns={columns}
-        // expandable={{
-        //   expandedRowRender: (record) => <p style={{ margin: 0 }}>{record.description}</p>,
-        //   rowExpandable: (record) => record.name !== 'Not Expandable',
-        // }}
-        dataSource={data}
-      />
+      <Table columns={columns} dataSource={data} />
     </>
   );
 };
