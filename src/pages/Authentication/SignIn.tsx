@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import LogoDark from '@/images/logo/logo-dark.svg';
-import Logo from '@/images/logo/logo.svg';
+import Logo from '@/images/logo/logo.png';
 import { Form, FormProps, Button, Input } from 'antd';
 import { TResponseSignin } from '@/types/auth';
 import { CommonContext } from '@/context/CommonContext';
@@ -36,12 +36,16 @@ const SignIn: React.FC = () => {
             <div className="py-17.5 px-26 text-center">
               <Link className="mb-5.5 inline-block" to="/">
                 <img className="hidden dark:block" src={Logo} alt="Logo" />
-                <img className="dark:hidden" src={LogoDark} alt="Logo" />
+                <img
+                  className="dark:hidden w-1/2 mx-auto"
+                  src={Logo}
+                  alt="Logo"
+                />
               </Link>
 
+              <h2 className="">Công ty TNHH TM XD Diệp Kiến Huy</h2>
               <p className="2xl:px-20">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                suspendisse.
+                68, Street 19, Ward 5, Go Vap District , Ho Chi Minh City
               </p>
 
               <span className="mt-15 inline-block">

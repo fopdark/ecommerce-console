@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ColorPicker, Form, Input, Select } from 'antd';
+import { Form, Input, Select } from 'antd';
 import CKEditorComponent from '../CKEditor';
 import TextArea from 'antd/es/input/TextArea';
 import { PUBLIC_DOMAIN } from '@/constant/ConstantCommon';
@@ -11,14 +11,14 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-const ServiceForm: React.FC<any> = ({isParent}) => {
+const IntroduceForm: React.FC = () => {
   const [form] = Form.useForm();
   const watchName = Form.useWatch('name', form);
   const watchSlug = Form.useWatch('slug', form);
   const watchLink = Form.useWatch('link', form);
 
   const onFinish = (values: any) => {
-    console.log({ ...values, link: convertToSlug(values?.link), slug: 'slug' });
+    console.log({...values, link: convertToSlug(values?.link), slug: "slug"});
   };
 
   // const onReset = () => {
@@ -34,14 +34,14 @@ const ServiceForm: React.FC<any> = ({isParent}) => {
     form.setFieldValue('slug', convertToSlug(watchName));
   }, [watchName]);
 
-  //   useEffect(() => {
-  //     // if (!watchLink) return;
-  //     const index  = watchLink?.lastIndexOf("/")
-  // console.log("index", index, watchLink?.slice(index+1))
-  //     const slug = watchLink?.slice(index+1)
-  //     form.setFieldValue('slug', convertToSlug(slug));
+//   useEffect(() => {
+//     // if (!watchLink) return;
+//     const index  = watchLink?.lastIndexOf("/")
+// console.log("index", index, watchLink?.slice(index+1))
+//     const slug = watchLink?.slice(index+1)
+//     form.setFieldValue('slug', convertToSlug(slug));
 
-  //   }, [watchLink]);
+//   }, [watchLink]);
 
   useEffect(() => {
     // console.log(watchSlug)
@@ -66,77 +66,29 @@ const ServiceForm: React.FC<any> = ({isParent}) => {
         label="Đường dẫn"
         rules={[{ required: true, defaultField: { type: 'url' } }]}
       >
-        <Input disabled />
+        <Input disabled/>
       </Form.Item>
       <Form.Item
         name="slug"
         label="Đường dẫn mở rộng"
         rules={[{ required: true }]}
       >
-        <Input />
+        <Input/>
       </Form.Item>
       <Form.Item name="index" label="Số thứ tự" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
       <Form.Item name="status" label="Hiển Thị" rules={[{ required: true }]}>
         <Select
-          // style={{ width: 120 }}
-          // onChange={handleChange}
-          // value={value}
           options={[
-            { value: '1', label: 'Hiển Thị' },
-            { value: '0', label: 'Tạm Ẩn' },
+            { value: "1", label: 'Hiển Thị' },
+            { value: "0", label: 'Tạm Ẩn' },
           ]}
         />
       </Form.Item>
-
-      {isParent && <Form.Item
-        name="parent"
-        label="Danh mục cấp 1"
-        rules={[{ required: true }]}
-      >
-        <Select
-          options={[
-            { value: '0', label: 'Sơn Epoxy, Sơn Sàn' },
-            { value: '1', label: 'Sơn Sàn PU' },
-            { value: '2', label: 'Chống Thấm' },
-            { value: '3', label: 'Phủ FRP, Phủ Compositer' },
-            { value: '4', label: 'Đánh Bóng Bê Tông ' },
-            { value: '5', label: 'Sơn Thể Thao' },
-          ]}
-        />
-      </Form.Item>}
-
       <Form.Item name="name" label="Tên" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
-      {/* <Form.Item name="colors" label="Màu" rules={[{ required: true }]}>
-        <ColorPicker
-          defaultValue="#1677ff"
-          // onChange={() => form.setFieldValue('color', 'black')}
-          onChange={(_, hex) => {
-            const newColors = form.getFieldValue('colors') || [];
-            newColors[0] = hex;
-            form.setFieldValue('colors', newColors);
-          }}
-        />
-        <ColorPicker
-          defaultValue="#1677ff"
-          onChange={(_, hex) => {
-            const newColors = form.getFieldValue('colors') || [];
-            newColors[1] = hex;
-            form.setFieldValue('colors', newColors);
-          }}
-        />
-        <ColorPicker
-          defaultValue="#1677ff"
-          onChange={(_, hex) => {
-            const newColors = form.getFieldValue('colors') || [];
-            newColors[2] = hex;
-            form.setFieldValue('colors', newColors);
-          }}
-        />
-      </Form.Item> */}
       <Form.Item name="description" label="Mô tả" rules={[{ required: true }]}>
         <TextArea rows={4} />
       </Form.Item>
@@ -188,4 +140,4 @@ const ServiceForm: React.FC<any> = ({isParent}) => {
   );
 };
 
-export default ServiceForm;
+export default IntroduceForm;

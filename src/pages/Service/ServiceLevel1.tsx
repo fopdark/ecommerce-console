@@ -77,9 +77,9 @@ const ServicesLeve1: React.FC = () => {
 
   return (
     <>
-    <Breadcrumb pageName="Sản phẩm" />
+    <Breadcrumb pageName="Dịch vụ cấp 1" />
       <Modal
-        title="Chi tiết sản phẩm"
+        title="Chi tiết dịch vụ cấp 1"
         centered
         open={modalOpen}
         width={1000}

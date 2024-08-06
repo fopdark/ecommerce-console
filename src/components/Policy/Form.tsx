@@ -11,7 +11,7 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-const ServiceForm: React.FC<any> = ({isParent}) => {
+const PolicyForm: React.FC = () => {
   const [form] = Form.useForm();
   const watchName = Form.useWatch('name', form);
   const watchSlug = Form.useWatch('slug', form);
@@ -89,23 +89,6 @@ const ServiceForm: React.FC<any> = ({isParent}) => {
           ]}
         />
       </Form.Item>
-
-      {isParent && <Form.Item
-        name="parent"
-        label="Danh mục cấp 1"
-        rules={[{ required: true }]}
-      >
-        <Select
-          options={[
-            { value: '0', label: 'Sơn Epoxy, Sơn Sàn' },
-            { value: '1', label: 'Sơn Sàn PU' },
-            { value: '2', label: 'Chống Thấm' },
-            { value: '3', label: 'Phủ FRP, Phủ Compositer' },
-            { value: '4', label: 'Đánh Bóng Bê Tông ' },
-            { value: '5', label: 'Sơn Thể Thao' },
-          ]}
-        />
-      </Form.Item>}
 
       <Form.Item name="name" label="Tên" rules={[{ required: true }]}>
         <Input />
@@ -188,4 +171,4 @@ const ServiceForm: React.FC<any> = ({isParent}) => {
   );
 };
 
-export default ServiceForm;
+export default PolicyForm;

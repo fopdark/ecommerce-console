@@ -22,6 +22,10 @@ import Customer from './pages/Customer';
 import ServiceLevel1 from './pages/Service/ServiceLevel1';
 import Service from './pages/Service';
 import { CommonContext } from './context/CommonContext';
+import IntroduceList from './pages/Introduce';
+import ContactForm from './pages/Contact';
+import FooterForm from './pages/Footer';
+import Policy from './pages/Policy';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -29,8 +33,8 @@ function App() {
   const navigate = useNavigate();
   const { access_token, handleSetAccessToken, handleSetUser } =
     useContext(CommonContext);
-  const tokenLocalStorage = localStorage.getItem("access_token");
-  const userLocalStorage = localStorage.getItem("user");
+  const tokenLocalStorage = localStorage.getItem('access_token');
+  const userLocalStorage = localStorage.getItem('user');
   // const { i18n } = useTranslation();
 
   useEffect(() => {
@@ -39,7 +43,7 @@ function App() {
 
   useEffect(() => {
     if (!tokenLocalStorage) {
-      navigate("/auth/signin");
+      navigate('/auth/signin');
     }
   }, [tokenLocalStorage]);
 
@@ -57,7 +61,7 @@ function App() {
           index
           element={
             <>
-              <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Dashboard | DiepKienHuy" />
               <ECommerce />
             </>
           }
@@ -66,7 +70,7 @@ function App() {
           path="/product/category"
           element={
             <>
-              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Product | DiepKienHuy" />
               <ProductCategory />
             </>
           }
@@ -75,7 +79,7 @@ function App() {
           path="/media"
           element={
             <>
-              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Media | DiepKienHuy" />
               <ProductCategory />
             </>
           }
@@ -84,7 +88,7 @@ function App() {
           path="/customer/getInfo"
           element={
             <>
-              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Customer | DiepKienHuy" />
               <Customer />
             </>
           }
@@ -93,16 +97,16 @@ function App() {
           path="/service/level1"
           element={
             <>
-              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Service Level 1 | DiepKienHuy" />
               <ServiceLevel1 />
             </>
           }
         />
         <Route
-          path="/service/lists"
+          path="/service/list"
           element={
             <>
-              <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+              <PageTitle title="Service | DiepKienHuy" />
               <Service />
             </>
           }
@@ -192,7 +196,7 @@ function App() {
           path="/auth/signin"
           element={
             <>
-              <PageTitle title="Signin | DiepKienHuy - Signin" />
+              <PageTitle title="Signin | DiepKienHuy" />
               <SignIn />
             </>
           }
@@ -203,6 +207,42 @@ function App() {
             <>
               <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
               <SignUp />
+            </>
+          }
+        />
+        <Route
+          path="/introduce"
+          element={
+            <>
+              <PageTitle title="Introduce | DiepKienKuy" />
+              <IntroduceList />
+            </>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <>
+              <PageTitle title="Contact | DiepKienKuy" />
+              <ContactForm />
+            </>
+          }
+        />
+        <Route
+          path="/footer"
+          element={
+            <>
+              <PageTitle title="Footer | DiepKienKuy" />
+              <FooterForm />
+            </>
+          }
+        />
+        <Route
+          path="/policy"
+          element={
+            <>
+              <PageTitle title="Policy | DiepKienKuy" />
+              <Policy />
             </>
           }
         />

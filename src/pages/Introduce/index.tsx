@@ -4,9 +4,9 @@ import type { TableColumnsType } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { getProducts } from '@/services/product';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import ServiceForm from '@/components/Service/Form';
+import IntroduceForm from '@/components/Introduce/Form';
 
-const Services: React.FC = () => {
+const IntroduceList: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [data, setData] = useState([]);
   const handleChange = (value: string) => {
@@ -65,8 +65,8 @@ const Services: React.FC = () => {
   const handleGetProducts = async () => {
     try {
       const res = await getProducts({});
-      console.log('res', res)
-      setData(res)
+      console.log('res', res);
+      setData(res);
     } catch (error) {
       console.log(error);
     }
@@ -77,9 +77,9 @@ const Services: React.FC = () => {
 
   return (
     <>
-    <Breadcrumb pageName="Dich vụ" />
+      <Breadcrumb pageName="Giới thiệu" />
       <Modal
-        title="Chi tiết sản phẩm"
+        title="Giới thiệu"
         centered
         open={modalOpen}
         width={1000}
@@ -98,7 +98,7 @@ const Services: React.FC = () => {
           </Flex>,
         ]}
       >
-        <ServiceForm isParent={true}/>
+        <IntroduceForm />
       </Modal>
       <Button onClick={() => setModalOpen(true)}>Tạo </Button>
       <Table columns={columns} dataSource={data} />
@@ -106,4 +106,4 @@ const Services: React.FC = () => {
   );
 };
 
-export default Services;
+export default IntroduceList;
