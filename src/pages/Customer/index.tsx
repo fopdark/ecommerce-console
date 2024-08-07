@@ -3,9 +3,9 @@ import { Button, Flex, Input, Modal, Select, Table } from 'antd';
 import type { TableColumnsType } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
-import CustomizeForm from '../../components/Customer/Form';
+import CustomerForm from '../../components/Customer/Form';
 import { getSliderList } from '../../services/slider';
-import { getCustomerRequestList } from '@/services/customer';
+import { deleteRequest, getCustomerRequestList } from '@/services/customer';
 import { ICustomerRequest } from '@/types/customer';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 
@@ -32,8 +32,22 @@ interface DataType {
 const Customer: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [data, setData] = useState<ICustomerRequest[]>([]);
+
+  const [selectedRow, setSelectedRow] = useState<any>();
+
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      if (!id) return;
+      const res = await deleteRequest(id);
+      handleGetList();
+      console.log('res', res);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const columns: TableColumnsType<ICustomerRequest> = [
@@ -42,7 +56,7 @@ const Customer: React.FC = () => {
       dataIndex: 'index',
       key: 'index',
       width: 100,
-      render: (value) => <Input value={value} />,
+      // render: (value) => <Input value={value} />,
     },
     { title: 'Họ Tên', dataIndex: 'name', key: 'name' },
     { title: 'Điện Thoại', dataIndex: 'phone', key: 'phone' },
@@ -61,11 +75,12 @@ const Customer: React.FC = () => {
           style={{ width: 150 }}
           onChange={handleChange}
           value={value}
+          disabled
           options={[
-            { value: '0', label: 'Đang chờ duyêt' },
-            { value: '1', label: 'Đã xem' },
-            { value: '2', label: 'Đã liên hệ' },
-            { value: '3', label: 'Đã thông báo' },
+            { value: 0, label: 'Đang chờ duyêt' },
+            { value: 1, label: 'Đã xem' },
+            { value: 2, label: 'Đã liên hệ' },
+            { value: 3, label: 'Đã thông báo' },
           ]}
         />
       ),
@@ -81,12 +96,18 @@ const Customer: React.FC = () => {
             style={{
               fontSize: 20,
             }}
-            onClick={() => setModalOpen(true)}
+            onClick={() => {
+              setModalOpen(true);
+              setSelectedRow(record);
+            }}
           />
           <DeleteOutlined
             className="cursor-pointer"
             style={{
               fontSize: 20,
+            }}
+            onClick={() => {
+              handleDelete(record._id);
             }}
           />
         </div>
@@ -136,8 +157,23 @@ const Customer: React.FC = () => {
           </Flex>,
         ]}
       >
-        <CustomizeForm />
+        <CustomerForm
+          onSuccess={() => {
+            setModalOpen(false);
+            handleGetList();
+          }}
+          data={selectedRow}
+        />
       </Modal>
+      <Flex className="mb-4" justify="end">
+        <Button
+          className="ml-auto"
+          type="primary"
+          onClick={() => setModalOpen(true)}
+        >
+          Tạo
+        </Button>
+      </Flex>
       <Table columns={columns} dataSource={data} />
     </>
   );

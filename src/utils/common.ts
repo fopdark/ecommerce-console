@@ -1,4 +1,5 @@
 export function convertToSlug(str: string) {
+  console.log('str', str)
   if (!str) return '';
   return str
     .normalize('NFD')

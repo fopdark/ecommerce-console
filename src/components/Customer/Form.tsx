@@ -1,45 +1,64 @@
-import React, { useState } from 'react';
-import { Form, Input, Select } from 'antd';
+import React, { useEffect } from 'react';
+import {
+  Form,
+  Input,
+  Select,
+} from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import { create, update } from '@/services/customer';
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
 
-const CustomizeForm: React.FC = () => {
+const CustomerForm: React.FC<any> = ({ data, onSuccess }) => {
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
-    console.log(values);
+  const onFinish = async (values: any) => {
+    try {
+      if (data?.index) {
+        await update(data?._id, values);
+      } else {
+        await create(values);
+      }
+      onSuccess();
+    } catch (error) {
+      console.log(error);
+    }
   };
+  useEffect(() => {
+    if (data?.index) {
+      form.setFieldsValue(data);
+    }
+  }, [data]);
 
-  const onReset = () => {
-    form.resetFields();
-  };
-
-  const onFill = () => {
-    form.setFieldsValue({ note: 'Hello world!', gender: 'male' });
-  };
-
-  const handleChange = () => {};
-
-  const [value, setValue] = useState('0');
   return (
     <Form
       {...layout}
       form={form}
       name="control-hooks"
       onFinish={onFinish}
+      //   style={{ maxWidth: '80vw' }}
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 20 }}
       className="pt-5 max-h-[80vh] overflow-y-auto"
-      id='customerForm'
+      id="customerForm"
     >
       <Form.Item name="index" label="Số thứ tự" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
-      <Form.Item name="name" label="Họ Tên" rules={[{ required: true }]}>
+      <Form.Item name="status" label="Hiển Thị" rules={[{ required: true }]}>
+        <Select
+          options={[
+            { value: 0, label: 'Đang chờ duyêt' },
+            { value: 1, label: 'Đã xem' },
+            { value: 2, label: 'Đã liên hệ' },
+            { value: 3, label: 'Đã thông báo' },
+          ]}
+        />
+      </Form.Item>
+      <Form.Item name="name" label="Tên" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
       <Form.Item
@@ -49,26 +68,14 @@ const CustomizeForm: React.FC = () => {
       >
         <Input />
       </Form.Item>
-      <Form.Item name="status" label="Trạng Thái" rules={[{ required: true }]}>
-        <Select
-          onChange={handleChange}
-          value={value}
-          options={[
-            { value: '0', label: 'Đang chờ duyêt' },
-            { value: '1', label: 'Đã xem' },
-            { value: '2', label: 'Đã liên hệ' },
-            { value: '3', label: 'Đã thông báo' },
-          ]}
-        />
-      </Form.Item>
-      <Form.Item name="content" label="Nội dung" rules={[{ required: true }]}>
+      <Form.Item name="content" label="nội dung" rules={[{ required: false }]}>
         <TextArea rows={4} />
       </Form.Item>
-      <Form.Item name="note" label="Ghi chú" rules={[{ required: true }]}>
+      <Form.Item name="note" label="Ghi chú" rules={[{ required: false }]}>
         <TextArea rows={4} />
       </Form.Item>
     </Form>
   );
 };
 
-export default CustomizeForm;
+export default CustomerForm;

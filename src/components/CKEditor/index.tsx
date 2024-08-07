@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {
   ClassicEditor,
@@ -29,6 +29,7 @@ import {
   ImageToolbar,
   AutoImage,
   ImageCaption,
+  Alignment,
 } from 'ckeditor5';
 
 import 'ckeditor5/ckeditor5.css';
@@ -36,12 +37,14 @@ import './style.css';
 
 interface Props {
   onChange: (values: any) => void;
+  value?: any;
 }
 
-export default function CKEditorComponent({ onChange }: Props) {
+export default function CKEditorComponent({ onChange, value }: Props) {
   return (
     <div>
       <CKEditor
+        data={value}
         editor={ClassicEditor}
         config={{
           toolbar: [
@@ -64,6 +67,7 @@ export default function CKEditorComponent({ onChange }: Props) {
             'highlight',
             'horizontalLine',
             'imageInsert',
+            'alignment',
           ],
           plugins: [
             Bold,
@@ -86,8 +90,9 @@ export default function CKEditorComponent({ onChange }: Props) {
             ImageInsert,
             ImageResize,
             ImageStyle,
-            ImageToolbar,
+            // ImageToolbar,
             ImageUpload,
+            Alignment,
             // Image,
             // ImageInsert,
             // ImageResize,
@@ -112,7 +117,7 @@ export default function CKEditorComponent({ onChange }: Props) {
         }}
         onChange={(event, editor) => {
           onChange(editor.getData());
-          console.log('editor', editor.getData());
+          // console.log('editor', editor.getData());
         }}
       />
     </div>

@@ -5,10 +5,12 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { getProducts } from '@/services/product';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import IntroduceForm from '@/components/Introduce/Form';
+import { getList } from '@/services/introduce';
 
 const IntroduceList: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [data, setData] = useState([]);
+  const [selectedRow, setSelectedRow] = useState<any>();
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
@@ -62,23 +64,24 @@ const IntroduceList: React.FC = () => {
     },
   ];
 
-  const handleGetProducts = async () => {
+  const handleGetList = async () => {
     try {
-      const res = await getProducts({});
+      const res = await getList({});
       console.log('res', res);
       setData(res);
+      setSelectedRow(res?.[0])
     } catch (error) {
       console.log(error);
     }
   };
   useEffect(() => {
-    handleGetProducts();
+    handleGetList();
   }, []);
 
   return (
     <>
       <Breadcrumb pageName="Giới thiệu" />
-      <Modal
+      {/* <Modal
         title="Giới thiệu"
         centered
         open={modalOpen}
@@ -88,7 +91,7 @@ const IntroduceList: React.FC = () => {
           <Flex justify="end" gap={10}>
             <Button onClick={() => setModalOpen(false)}>Hủy</Button>
             <Button
-              form="productForm"
+              form="introduceForm"
               key="submit"
               htmlType="submit"
               type="primary"
@@ -97,11 +100,16 @@ const IntroduceList: React.FC = () => {
             </Button>
           </Flex>,
         ]}
-      >
-        <IntroduceForm />
-      </Modal>
+      > */}
+        <IntroduceForm       data={selectedRow}
+          onSuccess={() => {
+            setModalOpen(false);
+            handleGetList();
+          }}
+           />
+      {/* </Modal>
       <Button onClick={() => setModalOpen(true)}>Tạo </Button>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} /> */}
     </>
   );
 };
