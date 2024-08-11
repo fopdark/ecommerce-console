@@ -1,36 +1,28 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  ColorPicker,
-  Flex,
-  Form,
-  Input,
-  Select,
-  UploadFile,
-} from 'antd';
+import { Form, Input, Select, UploadFile } from 'antd';
 import CKEditorComponent from '../CKEditor';
 import TextArea from 'antd/es/input/TextArea';
 import { PUBLIC_DOMAIN } from '@/constant/ConstantCommon';
 import { convertToSlug } from '@/utils/common';
 import UploadImage from '../UploadImage';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { uploadFiles } from '@/services/files';
-import { createProduct, updateProduct } from '@/services/product';
+import { create, update } from '@/services/service';
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
 
-const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
+const ServiceFormLevel1: React.FC<any> = ({
+  data,
+  onSuccess,
+}) => {
   const [form] = Form.useForm();
   const [previewImages, setPreviewImages] = useState<UploadFile[]>();
   const watchName = Form.useWatch('name', form);
   const watchSlug = Form.useWatch('slug', form);
-  const watchLink = Form.useWatch('link', form);
 
   const onUpdate = async (values: any) => {
-    // console.log({ ...values, link: convertToSlug(values?.link), slug: 'slug' });
     try {
       let resUploadImages: any = {};
       if (previewImages && previewImages?.length > 0) {
@@ -49,7 +41,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
         );
       }
       const request = { ...values, images: resUploadImages };
-      const res = await updateProduct(data?._id, request);
+      const res = await update(data?._id, request);
       onSuccess();
     } catch (error) {
       console.log(error);
@@ -66,7 +58,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
         files: requestImages,
       });
       const request = { ...values, ...resUploadImages };
-      const res = await createProduct(request);
+      const res = await create(request);
       onSuccess();
     } catch (error) {
       console.log(error);
@@ -80,6 +72,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
       onCreate(values);
     }
   };
+
   useEffect(() => {
     // if (!watchName) return;
     form.setFieldValue('slug', convertToSlug(watchName));
@@ -97,7 +90,10 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
   useEffect(() => {
     // console.log(watchSlug)
     // if(!watchSlug) return
-    form.setFieldValue('link', `${PUBLIC_DOMAIN}/products/${convertToSlug(watchSlug)}`);
+    form.setFieldValue(
+      'link',
+      `${PUBLIC_DOMAIN}/services/${convertToSlug(watchSlug)}`,
+    );
   }, [watchSlug]);
 
   useEffect(() => {
@@ -116,7 +112,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 20 }}
       className="pt-5 max-h-[80vh] overflow-y-auto"
-      id="productForm"
+      id="serviceForm"
     >
       <Form.Item name="index" label="Số thứ tự" rules={[{ required: true }]}>
         <Input />
@@ -148,34 +144,6 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
       </Form.Item>
       <Form.Item name="title" label="Tên" rules={[{ required: true }]}>
         <Input />
-      </Form.Item>
-      <Form.Item name="colors" label="Màu" rules={[{ required: true }]}>
-        <Form.List name="colors">
-          {(fields, { add, remove }) => (
-            <Flex gap={10}>
-              {fields.map((field, index) => (
-                <Form.Item key={index}>
-                  <Flex align="center" className="test" gap={5}>
-                    <Form.Item
-                      className="mb-0"
-                      rules={[{ required: true }]}
-                      {...field}
-                      getValueFromEvent={(color) => {
-                        return '#' + color.toHex();
-                      }}
-                      children={<ColorPicker />}
-                    />
-                    <MinusCircleOutlined onClick={() => remove(field.name)} />
-                  </Flex>
-                </Form.Item>
-              ))}
-
-              <Form.Item className="mb-0">
-                <Button onClick={() => add(null)} icon={<PlusOutlined />} />
-              </Form.Item>
-            </Flex>
-          )}
-        </Form.List>
       </Form.Item>
       <Form.Item name="description" label="Mô tả" rules={[{ required: true }]}>
         <TextArea rows={4} />
@@ -236,4 +204,4 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
   );
 };
 
-export default ProductForm;
+export default ServiceFormLevel1;

@@ -15,14 +15,14 @@ import { convertToSlug } from '@/utils/common';
 import UploadImage from '../UploadImage';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { uploadFiles } from '@/services/files';
-import { createProduct, updateProduct } from '@/services/product';
+import { create, update } from '@/services/project';
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
 
-const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
+const ProjectForm: React.FC<any> = ({ data, onSuccess }) => {
   const [form] = Form.useForm();
   const [previewImages, setPreviewImages] = useState<UploadFile[]>();
   const watchName = Form.useWatch('name', form);
@@ -49,7 +49,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
         );
       }
       const request = { ...values, images: resUploadImages };
-      const res = await updateProduct(data?._id, request);
+      const res = await update(data?._id, request);
       onSuccess();
     } catch (error) {
       console.log(error);
@@ -66,7 +66,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
         files: requestImages,
       });
       const request = { ...values, ...resUploadImages };
-      const res = await createProduct(request);
+      const res = await create(request);
       onSuccess();
     } catch (error) {
       console.log(error);
@@ -97,7 +97,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
   useEffect(() => {
     // console.log(watchSlug)
     // if(!watchSlug) return
-    form.setFieldValue('link', `${PUBLIC_DOMAIN}/products/${convertToSlug(watchSlug)}`);
+    form.setFieldValue('link', `${PUBLIC_DOMAIN}/projects/${convertToSlug(watchSlug)}`);
   }, [watchSlug]);
 
   useEffect(() => {
@@ -116,7 +116,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 20 }}
       className="pt-5 max-h-[80vh] overflow-y-auto"
-      id="productForm"
+      id="projectForm"
     >
       <Form.Item name="index" label="Số thứ tự" rules={[{ required: true }]}>
         <Input />
@@ -149,7 +149,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
       <Form.Item name="title" label="Tên" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
-      <Form.Item name="colors" label="Màu" rules={[{ required: true }]}>
+      {/* <Form.Item name="colors" label="Màu" rules={[{ required: true }]}>
         <Form.List name="colors">
           {(fields, { add, remove }) => (
             <Flex gap={10}>
@@ -176,7 +176,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
             </Flex>
           )}
         </Form.List>
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item name="description" label="Mô tả" rules={[{ required: true }]}>
         <TextArea rows={4} />
       </Form.Item>
@@ -236,4 +236,4 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
   );
 };
 
-export default ProductForm;
+export default ProjectForm;

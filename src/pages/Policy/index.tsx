@@ -2,41 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { Button, Flex, Input, Modal, Select, Table } from 'antd';
 import type { TableColumnsType } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { getProducts } from '@/services/product';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import PolicyForm from '@/components/Policy/Form';
+import { deletePolicy, getList } from '@/services/policy';
 
 const Policy: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [data, setData] = useState([]);
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
+  const [selectedRow, setSelectedRow] = useState<any>();
 
   const columns: TableColumnsType<any> = [
     {
       title: 'STT',
       dataIndex: 'index',
       key: 'index',
-      width: 100,
-      render: () => <Input />,
+      width: 150,
     },
-    { title: 'Tên', dataIndex: 'name', key: 'name' },
+    { title: 'Tên', dataIndex: 'title', key: 'title' },
     {
       title: 'Hiển Thị',
       dataIndex: 'status',
       key: 'status',
-      render: (value) => (
-        <Select
-          style={{ width: 120 }}
-          onChange={handleChange}
-          value={value}
-          options={[
-            { value: '1', label: 'Hiển Thị' },
-            { value: '0', label: 'Tạm Ẩn' },
-          ]}
-        />
-      ),
+      render: (value) => <p>{value === 1 ? 'Hiển Thị' : 'Tạm Ẩn'}</p>,
     },
     {
       title: 'Thao Tác',
@@ -49,12 +36,18 @@ const Policy: React.FC = () => {
             style={{
               fontSize: 20,
             }}
-            onClick={() => setModalOpen(true)}
+            onClick={() => {
+              setModalOpen(true);
+              setSelectedRow(record);
+            }}
           />
           <DeleteOutlined
             className="cursor-pointer"
             style={{
               fontSize: 20,
+            }}
+            onClick={() => {
+              handleDelete(record._id);
             }}
           />
         </div>
@@ -62,33 +55,53 @@ const Policy: React.FC = () => {
     },
   ];
 
-  const handleGetProducts = async () => {
+  const handleGetList = async () => {
     try {
-      const res = await getProducts({});
-      console.log('res', res)
-      setData(res)
+      const res = await getList({});
+      console.log('res', res);
+      setData(res);
     } catch (error) {
       console.log(error);
     }
   };
+
+  const handleDelete = async (id: string) => {
+    try {
+      if (!id) return;
+      const res = await deletePolicy(id);
+      handleGetList();
+      console.log('res', res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onCancel = () => {
+    setModalOpen(false);
+    setSelectedRow({});
+  };
+
   useEffect(() => {
-    handleGetProducts();
+    handleGetList();
   }, []);
 
   return (
     <>
-    <Breadcrumb pageName="Chính sách - Quy định" />
+      <Breadcrumb pageName="Chính sách" />
       <Modal
         title="Chi tiết chính sách"
         centered
         open={modalOpen}
         width={1000}
-        onCancel={() => setModalOpen(false)}
+        onCancel={onCancel}
+        destroyOnClose={true}
         footer={[
           <Flex justify="end" gap={10}>
-            <Button onClick={() => setModalOpen(false)}>Hủy</Button>
+            <Button key={'cancel'} onClick={() => setModalOpen(false)}>
+              Hủy
+            </Button>
             <Button
-              form="productForm"
+              form="policyForm"
               key="submit"
               htmlType="submit"
               type="primary"
@@ -98,10 +111,24 @@ const Policy: React.FC = () => {
           </Flex>,
         ]}
       >
-        <PolicyForm/>
+        <PolicyForm
+          data={selectedRow}
+          onSuccess={() => {
+            setModalOpen(false);
+            handleGetList();
+          }}
+        />
       </Modal>
-      <Button onClick={() => setModalOpen(true)}>Tạo </Button>
-      <Table columns={columns} dataSource={data} />
+      <Flex className="mb-4" justify="end">
+        <Button
+          className="ml-auto"
+          type="primary"
+          onClick={() => setModalOpen(true)}
+        >
+          Tạo
+        </Button>
+      </Flex>
+      <Table columns={columns} dataSource={data} rowKey={'link'} />
     </>
   );
 };

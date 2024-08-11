@@ -26,6 +26,7 @@ import IntroduceList from './pages/Introduce';
 import ContactForm from './pages/Contact';
 import FooterForm from './pages/Footer';
 import Policy from './pages/Policy';
+import Project from './pages/Project';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -243,6 +244,15 @@ function App() {
             <>
               <PageTitle title="Policy | DiepKienKuy" />
               <Policy />
+            </>
+          }
+        />
+        <Route
+          path="/project"
+          element={
+            <>
+              <PageTitle title="Project | DiepKienKuy" />
+              <Project />
             </>
           }
         />
