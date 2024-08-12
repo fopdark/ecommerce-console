@@ -30,10 +30,16 @@ import {
   AutoImage,
   ImageCaption,
   Alignment,
+  Editor,
+  FileLoader,
+  UploadAdapter,
 } from 'ckeditor5';
 
 import 'ckeditor5/ckeditor5.css';
 import './style.css';
+import axios from 'axios';
+import { API_URL } from '@/constant/ConstantCommon';
+import { uploadFiles } from '@/services/files';
 
 interface Props {
   onChange: (values: any) => void;
@@ -41,6 +47,46 @@ interface Props {
 }
 
 export default function CKEditorComponent({ onChange, value }: Props) {
+
+  function uploadAdapter(loader: FileLoader): UploadAdapter {
+    return {
+      upload: () => {
+        return new Promise(async (resolve, reject) => {
+          try {
+            const file = await loader.file;
+            // const response = await axios.request({
+            //   method: "POST",
+            //   url: `${HOST}/upload_files`,
+            //   data: {
+            //     files: file
+            //   },
+            //   headers: {
+            //     "Content-Type": "multipart/form-data"
+            //   }
+            // });
+            const resUploadImages = await uploadFiles({
+              files: [file],
+            });
+            
+            console.log('resUploadImages',resUploadImages)
+            resolve({
+              // default: `${HOST}/${response.data.filename}`
+            });
+          } catch (error) {
+            reject("reject upload image");
+          }
+        });
+      },
+      abort: () => {}
+    };
+  }
+
+  function uploadPlugin(editor: Editor) {
+    editor.plugins.get("FileRepository").createUploadAdapter = (loader: any) => {
+      return uploadAdapter(loader);
+    };
+  }
+
   return (
     <div>
       <CKEditor
@@ -93,8 +139,8 @@ export default function CKEditorComponent({ onChange, value }: Props) {
             // ImageToolbar,
             ImageUpload,
             Alignment,
-            // Image,
-            // ImageInsert,
+            Image,
+            ImageInsert,
             // ImageResize,
             // ImageInsertUI,
             // ImageStyle,
@@ -114,6 +160,7 @@ export default function CKEditorComponent({ onChange, value }: Props) {
               'imageStyle:side',
             ],
           },
+          extraPlugins: [uploadPlugin]
         }}
         onChange={(event, editor) => {
           onChange(editor.getData());

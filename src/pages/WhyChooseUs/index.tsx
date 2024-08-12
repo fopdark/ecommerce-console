@@ -1,25 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Card,
-  Flex,
-  Form,
-  Input,
-  UploadFile,
-} from 'antd';
+import { Button, Card, Flex, Form, Input, UploadFile } from 'antd';
 import { uploadFiles } from '@/services/files';
-import { create, update } from '@/services/contact';
-import CKEditorComponent from '@/components/CKEditor';
-import {
-  CloseOutlined,
-} from '@ant-design/icons';
+import { create, update } from '@/services/why';
+import { CloseOutlined } from '@ant-design/icons';
+import TextArea from 'antd/es/input/TextArea';
+import UploadImage from '@/components/UploadImage';
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
 
-const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
+const WhyChooseUsForm: React.FC<any> = ({ data, onSuccess }) => {
   const [form] = Form.useForm();
   const [previewImages, setPreviewImages] = useState<UploadFile[]>();
 
@@ -102,18 +94,15 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
       className="pt-5 overflow-y-auto"
       id="contactForm"
     >
-      <Form.Item name="hotline" label="Hotline" rules={[{ required: true }]}>
-        <Input />
-      </Form.Item>
-      <Form.Item name="email" label="Email" rules={[{ required: true }]}>
-        <Input />
+      <Form.Item name="content" label="Nội Dung" rules={[{ required: true }]}>
+        <TextArea rows={4} />
       </Form.Item>
       <Form.Item
-        name="address_list"
-        label="Liên lạc"
+        name="hot"
+        label="Nổi bật"
         rules={[{ required: true }]}
       >
-        <Form.List name="address_list">
+        <Form.List name="hot">
           {(fields, { add, remove }) => (
             <div
               style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}
@@ -121,7 +110,7 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
               {fields.map((field) => (
                 <Card
                   size="small"
-                  title={`Địa chỉ ${field.name + 1}`}
+                  title={`Nổi bật ${field.name + 1}`}
                   key={field.key}
                   extra={
                     <CloseOutlined
@@ -131,71 +120,31 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
                     />
                   }
                 >
-                  <Form.Item label="Địa chỉ" name={[field.name, 'address']}>
-                    <Input />
+                  <Form.Item
+                    name="images"
+                    label="Hình ảnh"
+                    rules={[{ required: true }]}
+                  >
+                    <UploadImage
+                      onChange={(images: UploadFile[]) => {
+                        form.setFieldValue('images', images);
+                        // setPreviewImages(images);
+                      }}
+                      data={form.getFieldValue('images')}
+                    />
                   </Form.Item>
-
-                  {/* Nest Form.List */}
-                  <Form.Item label="Hotline">
-                    <Form.List name={[field.name, 'phone']}>
-                      {(subFields, subOpt) => (
-                        <div
-                          style={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            rowGap: 16,
-                          }}
-                        >
-                          {subFields.map((subField) => (
-                            <Flex key={subField.key} gap={10}>
-                              <div className='flex flex-1 justify-between gap-5'>
-                              <Form.Item
-                                className="mb-0 w-1/2"
-                                label="Số điện thoại"
-                                name={[subField.name, 'number']}
-                              >
-                                <Input placeholder="Số điện thoại" />
-                              </Form.Item>
-                              <Form.Item
-                                className="mb-0 w-1/2"
-                                label="Tên"
-                                name={[subField.name, 'owner']}
-                              >
-                                <Input placeholder="Tên" />
-                              </Form.Item>
-                              </div>
-                              <CloseOutlined
-                                onClick={() => {
-                                  subOpt.remove(subField.name);
-                                }}
-                              />
-                            </Flex>
-                          ))}
-                          <Button
-                            type="dashed"
-                            onClick={() => subOpt.add()}
-                            block
-                          >
-                            + Thêm số điện thoại
-                          </Button>
-                        </div>
-                      )}
-                    </Form.List>
+                  <Form.Item label="Nội dung" name={[field.name, 'address']}>
+                    <Input />
                   </Form.Item>
                 </Card>
               ))}
 
               <Button type="dashed" onClick={() => add()} block>
-                + Thêm địa chỉ
+                + Thêm điểm nổi bật
               </Button>
             </div>
           )}
         </Form.List>
-      </Form.Item>
-      <Form.Item name="content" label="Nội dung" rules={[{ required: false }]}>
-        <CKEditorComponent
-          onChange={(value: any) => form.setFieldValue('content', value)}
-        />
       </Form.Item>
       <Flex justify="center" gap={10}>
         <Button
@@ -211,4 +160,4 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
   );
 };
 
-export default IntroduceForm;
+export default WhyChooseUsForm;

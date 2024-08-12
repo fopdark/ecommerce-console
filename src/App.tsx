@@ -27,6 +27,7 @@ import ContactForm from './pages/Contact';
 import FooterForm from './pages/Footer';
 import Policy from './pages/Policy';
 import Project from './pages/Project';
+import WhyChooseUsForm from './pages/WhyChooseUs';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -253,6 +254,15 @@ function App() {
             <>
               <PageTitle title="Project | DiepKienKuy" />
               <Project />
+            </>
+          }
+        />
+        <Route
+          path="/why"
+          element={
+            <>
+              <PageTitle title="Why Choose Us | DiepKienKuy" />
+              <WhyChooseUsForm />
             </>
           }
         />
