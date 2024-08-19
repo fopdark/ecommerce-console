@@ -69,7 +69,7 @@ const IntroduceList: React.FC = () => {
       const res = await getList({});
       console.log('res', res);
       setData(res);
-      setSelectedRow(res?.[0])
+      setSelectedRow(res)
     } catch (error) {
       console.log(error);
     }

@@ -1,27 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Button,
-  Card,
-  Flex,
-  Form,
-  Input,
-  UploadFile,
-} from 'antd';
+import { Button, Card, Flex, Form, Input, UploadFile } from 'antd';
 import { uploadFiles } from '@/services/files';
-import { create, update } from '@/services/contact';
+import { create, getList, update } from '@/services/contact';
 import CKEditorComponent from '@/components/CKEditor';
-import {
-  CloseOutlined,
-} from '@ant-design/icons';
+import { CloseOutlined } from '@ant-design/icons';
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
 
-const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
+const IntroduceForm: React.FC<any> = ({ onSuccess }) => {
   const [form] = Form.useForm();
   const [previewImages, setPreviewImages] = useState<UploadFile[]>();
+  const [data, setData] = useState<any>();
 
   const onUpdate = async (values: any) => {
     try {
@@ -68,7 +60,7 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
       const request = {
         ...values,
         ...resUploadImages,
-        address: [values?.address],
+        // address: [values?.address],
       };
       const res = await create(request);
       onSuccess();
@@ -78,10 +70,19 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
   };
 
   const onFinish = async (values: any) => {
-    if (data?.index) {
+    if (data?._id) {
       onUpdate(values);
     } else {
       onCreate(values);
+    }
+  };
+
+  const handleGetContact = async () => {
+    try {
+      const res = await getList({});
+      setData(res);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -90,6 +91,10 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
       form.setFieldsValue(data);
     }
   }, [data]);
+
+  useEffect(() => {
+    handleGetContact();
+  }, []);
 
   return (
     <Form
@@ -148,21 +153,21 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
                         >
                           {subFields.map((subField) => (
                             <Flex key={subField.key} gap={10}>
-                              <div className='flex flex-1 justify-between gap-5'>
-                              <Form.Item
-                                className="mb-0 w-1/2"
-                                label="Số điện thoại"
-                                name={[subField.name, 'number']}
-                              >
-                                <Input placeholder="Số điện thoại" />
-                              </Form.Item>
-                              <Form.Item
-                                className="mb-0 w-1/2"
-                                label="Tên"
-                                name={[subField.name, 'owner']}
-                              >
-                                <Input placeholder="Tên" />
-                              </Form.Item>
+                              <div className="flex flex-1 justify-between gap-5">
+                                <Form.Item
+                                  className="mb-0 w-1/2"
+                                  label="Số điện thoại"
+                                  name={[subField.name, 'number']}
+                                >
+                                  <Input placeholder="Số điện thoại" />
+                                </Form.Item>
+                                <Form.Item
+                                  className="mb-0 w-1/2"
+                                  label="Tên"
+                                  name={[subField.name, 'owner']}
+                                >
+                                  <Input placeholder="Tên" />
+                                </Form.Item>
                               </div>
                               <CloseOutlined
                                 onClick={() => {

@@ -16,7 +16,6 @@ const layout = {
 const ServiceForm: React.FC<any> = ({
   data,
   onSuccess,
-  isParent = false,
   serviceOptions = [],
 }) => {
   const [form] = Form.useForm();
@@ -104,6 +103,7 @@ const ServiceForm: React.FC<any> = ({
     if (data?.index) {
       form.setFieldsValue(data);
     }
+    
   }, [data]);
 
   return (
@@ -146,15 +146,13 @@ const ServiceForm: React.FC<any> = ({
           ]}
         />
       </Form.Item>
-      {isParent && (
-        <Form.Item
-          name="parent"
-          label="Danh mục cấp 1"
-          rules={[{ required: true }]}
-        >
-          <Select options={serviceOptions || []} />
-        </Form.Item>
-      )}
+      <Form.Item
+        name="parent"
+        label="Danh mục cấp 1"
+        rules={[{ required: true }]}
+      >
+        <Select options={serviceOptions} />
+      </Form.Item>
       <Form.Item name="title" label="Tên" rules={[{ required: true }]}>
         <Input />
       </Form.Item>

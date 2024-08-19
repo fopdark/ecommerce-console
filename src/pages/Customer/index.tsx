@@ -4,7 +4,6 @@ import type { TableColumnsType } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import CustomerForm from '../../components/Customer/Form';
-import { getSliderList } from '../../services/slider';
 import { deleteRequest, getCustomerRequestList } from '@/services/customer';
 import { ICustomerRequest } from '@/types/customer';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';

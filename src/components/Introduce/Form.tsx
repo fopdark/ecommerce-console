@@ -4,7 +4,6 @@ import CKEditorComponent from '../CKEditor';
 import TextArea from 'antd/es/input/TextArea';
 import UploadImage from '../UploadImage';
 import { uploadFiles } from '@/services/files';
-import { createProduct, updateProduct } from '@/services/product';
 import { create, update } from '@/services/introduce';
 
 const layout = {
@@ -63,7 +62,7 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
   };
 
   const onFinish = async (values: any) => {
-    if (data?.index) {
+    if (data?._id) {
       onUpdate(values);
     } else {
       onCreate(values);
@@ -103,7 +102,7 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
           onChange={(value: any) => form.setFieldValue('content', value)}
         />
       </Form.Item>
-      <Form.Item name="images" label="Hình ảnh" rules={[{ required: false }]}>
+      {/* <Form.Item name="images" label="Hình ảnh" rules={[{ required: false }]}>
         <UploadImage
           onChange={(images: UploadFile[]) => {
             form.setFieldValue('images', images);
@@ -111,7 +110,7 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
           }}
           data={form.getFieldValue('images')}
         />
-      </Form.Item>
+      </Form.Item> */}
       <div className="px-2">
         <h2>SEO</h2>
         <Form.Item

@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { Button, Flex, Input, Modal, Select, Table } from 'antd';
 import type { TableColumnsType } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { deleteProduct, getProducts } from '@/services/product';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import { deleteService, getList } from '@/services/service';
-import ServiceForm from '@/components/Service/Form';
+import SliderForm from '@/components/Slider/Form';
+import { getList } from '@/services/slider';
 
-const ServiceLevel1: React.FC = () => {
+const SliderPage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [data, setData] = useState([]);
   const [selectedRow, setSelectedRow] = useState<any>();
-  const [serviceOptions, setServiceOptions] = useState([]);
 
   const columns: TableColumnsType<any> = [
     {
@@ -25,7 +25,19 @@ const ServiceLevel1: React.FC = () => {
       title: 'Hiển Thị',
       dataIndex: 'status',
       key: 'status',
-      render: (value) => <p>{value === 1 ? 'Hiển Thị' : 'Tạm Ẩn'}</p>,
+      render: (value) => (
+        <p>{value === 1 ? 'Hiển Thị' : 'Tạm Ẩn'}</p>
+        // <Select
+        //   disabled
+        //   style={{ width: 120 }}
+        //   onChange={handleChange}
+        //   value={value || 0}
+        //   options={[
+        //     { value: 1, label: 'Hiển Thị' },
+        //     { value: 0, label: 'Tạm Ẩn' },
+        //   ]}
+        // />
+      ),
     },
     {
       title: 'Thao Tác',
@@ -57,25 +69,9 @@ const ServiceLevel1: React.FC = () => {
     },
   ];
 
-  const handleGetListLevel1 = async () => {
-    try {
-      const res = await getList({});
-      const tmpServiceLevel1: any = [];
-      res.forEach((service: any) => {
-        tmpServiceLevel1.push({
-          label: service?.title,
-          value: service?._id,
-        });
-      });
-      setServiceOptions(tmpServiceLevel1);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   const handleGetList = async () => {
     try {
-      const res = await getList({ params: { level: 2 } });
+      const res = await getList({});
       console.log('res', res);
       setData(res);
     } catch (error) {
@@ -86,7 +82,7 @@ const ServiceLevel1: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       if (!id) return;
-      const res = await deleteService(id);
+      const res = await deleteProduct(id);
       handleGetList();
       console.log('res', res);
     } catch (error) {
@@ -101,14 +97,13 @@ const ServiceLevel1: React.FC = () => {
 
   useEffect(() => {
     handleGetList();
-    handleGetListLevel1();
   }, []);
 
   return (
     <>
-      <Breadcrumb pageName="Danh mục" />
+      <Breadcrumb pageName="Slider" />
       <Modal
-        title="Chi tiết danh mục"
+        title="Chi tiết Slider"
         centered
         open={modalOpen}
         width={1000}
@@ -120,7 +115,7 @@ const ServiceLevel1: React.FC = () => {
               Hủy
             </Button>
             <Button
-              form="serviceForm"
+              form="sliderForm"
               key="submit"
               htmlType="submit"
               type="primary"
@@ -130,13 +125,12 @@ const ServiceLevel1: React.FC = () => {
           </Flex>,
         ]}
       >
-        <ServiceForm
+        <SliderForm
           data={selectedRow}
           onSuccess={() => {
             setModalOpen(false);
             handleGetList();
           }}
-          serviceOptions={serviceOptions}
         />
       </Modal>
       <Flex className="mb-4" justify="end">
@@ -153,4 +147,4 @@ const ServiceLevel1: React.FC = () => {
   );
 };
 
-export default ServiceLevel1;
+export default SliderPage;

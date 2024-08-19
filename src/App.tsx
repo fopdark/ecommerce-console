@@ -28,6 +28,7 @@ import FooterForm from './pages/Footer';
 import Policy from './pages/Policy';
 import Project from './pages/Project';
 import WhyChooseUsForm from './pages/WhyChooseUs';
+import SliderPage from './pages/Slider';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -263,6 +264,15 @@ function App() {
             <>
               <PageTitle title="Why Choose Us | DiepKienKuy" />
               <WhyChooseUsForm />
+            </>
+          }
+        />
+        <Route
+          path="/slider"
+          element={
+            <>
+              <PageTitle title="Slider | DiepKienKuy" />
+              <SliderPage />
             </>
           }
         />

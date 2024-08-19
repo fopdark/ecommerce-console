@@ -45,7 +45,7 @@ function CommonProvider({ children }: { children: ReactNode }) {
   const handleSetAccessToken = (token: any) => {
     console.log('handleSetAccessToken', token);
     setToken(token);
-    localStorage.setItem('access_token', JSON.stringify(token || ''));
+    localStorage.setItem('access_token', token || '');
   };
 
   const commonValue: any = {

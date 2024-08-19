@@ -60,7 +60,7 @@ const WhyChooseUsForm: React.FC<any> = ({ data, onSuccess }) => {
       const request = {
         ...values,
         ...resUploadImages,
-        address: [values?.address],
+        // address: [values?.address],
       };
       const res = await create(request);
       onSuccess();
@@ -121,9 +121,9 @@ const WhyChooseUsForm: React.FC<any> = ({ data, onSuccess }) => {
                   }
                 >
                   <Form.Item
-                    name="images"
+                    name="image"
                     label="Hình ảnh"
-                    rules={[{ required: true }]}
+                    rules={[{ required: false }]}
                   >
                     <UploadImage
                       onChange={(images: UploadFile[]) => {
@@ -133,7 +133,7 @@ const WhyChooseUsForm: React.FC<any> = ({ data, onSuccess }) => {
                       data={form.getFieldValue('images')}
                     />
                   </Form.Item>
-                  <Form.Item label="Nội dung" name={[field.name, 'address']}>
+                  <Form.Item label="Nội dung" name={[field.name, 'content']}>
                     <Input />
                   </Form.Item>
                 </Card>
