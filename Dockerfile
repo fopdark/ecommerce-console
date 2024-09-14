@@ -16,4 +16,4 @@ COPY . .
 RUN npm run build
 
 # Fetching the latest nginx image
-EXPOSE 3000
+EXPOSE 3001
