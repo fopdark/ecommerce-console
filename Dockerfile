@@ -16,4 +16,7 @@ COPY . .
 RUN npm run build
 
 # Fetching the latest nginx image
-EXPOSE 3001
+EXPOSE 5173
+
+# start
+CMD ["npm", "start"]
