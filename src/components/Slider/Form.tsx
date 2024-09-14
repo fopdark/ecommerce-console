@@ -3,7 +3,7 @@ import { Form, Input, Select, UploadFile } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import UploadImage from '../UploadImage';
 import { uploadFiles } from '@/services/files';
-import { createProduct, updateProduct } from '@/services/product';
+import { create, update } from '@/services/slider';
 
 const layout = {
   labelCol: { span: 8 },
@@ -28,12 +28,12 @@ const SliderForm: React.FC<any> = ({ data, onSuccess }) => {
             const res = await uploadFiles({
               files: [image],
             });
-            resUploadImages[index] = res?.images?.[0];
+            resUploadImages = res?.images?.[0];
           }),
         );
       }
       const request = { ...values, image_url: resUploadImages };
-      const res = await updateProduct(data?._id, request);
+      const res = await update(data?._id, request);
       onSuccess();
     } catch (error) {
       console.log(error);
@@ -42,15 +42,16 @@ const SliderForm: React.FC<any> = ({ data, onSuccess }) => {
 
   const onCreate = async (values: any) => {
     try {
-      let resUploadImages = {};
+      let resUploadImages: any = {};
       const requestImages = previewImages?.map(
         (image: UploadFile) => image?.originFileObj,
       );
       resUploadImages = await uploadFiles({
         files: requestImages,
       });
-      const request = { ...values, ...resUploadImages };
-      const res = await createProduct(request);
+      console.log('resUploadImages', resUploadImages);
+      const request = { ...values, image_url: resUploadImages?.images?.[0] };
+      const res = await create(request);
       onSuccess();
     } catch (error) {
       console.log(error);
@@ -66,7 +67,7 @@ const SliderForm: React.FC<any> = ({ data, onSuccess }) => {
   };
 
   useEffect(() => {
-    if (data?.index) {
+    if (data?._id) {
       form.setFieldsValue(data);
     }
   }, [data]);
@@ -105,7 +106,13 @@ const SliderForm: React.FC<any> = ({ data, onSuccess }) => {
             form.setFieldValue('image_url', images);
             setPreviewImages(images);
           }}
-          data={form.getFieldValue('image_url')}
+          data={
+            form.getFieldValue('image_url')
+              ? form.getFieldValue('image_url')
+              : data?.image_url
+              ? [data?.image_url]
+              : []
+          }
           limit={1}
         />
       </Form.Item>

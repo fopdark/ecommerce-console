@@ -10,7 +10,7 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-const IntroduceForm: React.FC<any> = ({ onSuccess }) => {
+const ContactForm: React.FC<any> = ({ onSuccess }) => {
   const [form] = Form.useForm();
   const [previewImages, setPreviewImages] = useState<UploadFile[]>();
   const [data, setData] = useState<any>();
@@ -216,4 +216,4 @@ const IntroduceForm: React.FC<any> = ({ onSuccess }) => {
   );
 };
 
-export default IntroduceForm;
+export default ContactForm;

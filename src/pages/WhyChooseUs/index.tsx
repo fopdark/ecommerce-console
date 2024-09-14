@@ -69,12 +69,39 @@ const WhyChooseUsForm: React.FC<any> = ({ data, onSuccess }) => {
     }
   };
 
+  const handleUploadFile = async (e: any) => {
+    console.log('Upload event:', e);
+    //   if (Array.isArray(e)) {
+    //     return e;
+    //   }
+    //  return e && e.fileList;
+
+    const res = await Promise.all(
+      e.map(async (image: any, index: number) => {
+        console.log('image', image);
+        if (!image?.originFileObj) return;
+        const res = await uploadFiles({
+          files: [image?.originFileObj],
+        });
+        return res?.images?.[0];
+      }),
+    );
+
+    return res?.[0];
+  };
+
+  const getFile = async (e: any) => {
+    console.log('Upload event:', e);
+    return handleUploadFile(e);
+  };
+
   const onFinish = async (values: any) => {
-    if (data?.index) {
-      onUpdate(values);
-    } else {
-      onCreate(values);
-    }
+    console.log('values', values);
+    // if (data?.index) {
+    //   onUpdate(values);
+    // } else {
+    //   onCreate(values);
+    // }
   };
 
   useEffect(() => {
@@ -97,11 +124,7 @@ const WhyChooseUsForm: React.FC<any> = ({ data, onSuccess }) => {
       <Form.Item name="content" label="Nội Dung" rules={[{ required: true }]}>
         <TextArea rows={4} />
       </Form.Item>
-      <Form.Item
-        name="hot"
-        label="Nổi bật"
-        rules={[{ required: true }]}
-      >
+      <Form.Item name="hot" label="Nổi bật" rules={[{ required: true }]}>
         <Form.List name="hot">
           {(fields, { add, remove }) => (
             <div
@@ -121,16 +144,19 @@ const WhyChooseUsForm: React.FC<any> = ({ data, onSuccess }) => {
                   }
                 >
                   <Form.Item
-                    name="image"
+                    name={[field.name, 'image']}
                     label="Hình ảnh"
                     rules={[{ required: false }]}
+                    getValueFromEvent={getFile}
                   >
                     <UploadImage
                       onChange={(images: UploadFile[]) => {
-                        form.setFieldValue('images', images);
+                        console.log('images nguyên con', images);
+                        // form.setFieldValue('images', images);
                         // setPreviewImages(images);
                       }}
-                      data={form.getFieldValue('images')}
+                      // data={form.getFieldValue('images')}
+                      limit={1}
                     />
                   </Form.Item>
                   <Form.Item label="Nội dung" name={[field.name, 'content']}>

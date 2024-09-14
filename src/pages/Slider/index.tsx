@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { Button, Flex, Input, Modal, Select, Table } from 'antd';
 import type { TableColumnsType } from 'antd';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { deleteProduct, getProducts } from '@/services/product';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
 import SliderForm from '@/components/Slider/Form';
-import { getList } from '@/services/slider';
+import { deleteSlider, getList } from '@/services/slider';
 
 const SliderPage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
@@ -82,7 +81,7 @@ const SliderPage: React.FC = () => {
   const handleDelete = async (id: string) => {
     try {
       if (!id) return;
-      const res = await deleteProduct(id);
+      const res = await deleteSlider(id);
       handleGetList();
       console.log('res', res);
     } catch (error) {
@@ -126,7 +125,7 @@ const SliderPage: React.FC = () => {
         ]}
       >
         <SliderForm
-          data={selectedRow}
+          data={{ ...selectedRow, image_url: [selectedRow?.image_url] }}
           onSuccess={() => {
             setModalOpen(false);
             handleGetList();

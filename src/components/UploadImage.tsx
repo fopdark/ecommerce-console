@@ -39,6 +39,7 @@ const UploadImage: React.FC<Props> = ({ data, onChange, limit = 10 }) => {
   };
 
   useEffect(() => {
+    console.log('UploadImage data: ', data)
     if (data?.length > 0) setFileList(data);
   }, [data]);
 
@@ -52,7 +53,7 @@ const UploadImage: React.FC<Props> = ({ data, onChange, limit = 10 }) => {
     <>
       <Upload
         // action="https://one957-api.onrender.com/api/v1/admin/files/upload"
-        beforeUpload={() => console.log('')}
+        beforeUpload={() => false}
         listType="picture-card"
         fileList={fileList}
         onPreview={handlePreview}

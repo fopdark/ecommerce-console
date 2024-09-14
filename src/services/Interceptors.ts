@@ -16,7 +16,7 @@ const onRequest = (
   const access_token = localStorage.getItem("access_token");
   console.log('access_token',access_token)
   if (access_token) {
-    config.headers.Authorization = `Bearer ${JSON.parse(access_token)}`;
+    config.headers.Authorization = `Bearer ${access_token}`;
   }
   return config;
 };
