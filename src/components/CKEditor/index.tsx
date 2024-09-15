@@ -70,7 +70,7 @@ export default function CKEditorComponent({ onChange, value }: Props) {
             
             console.log('resUploadImages',resUploadImages)
             resolve({
-              default: resUploadImages?.images?.[0].url
+              default: `${API_URL}/${resUploadImages?.images?.[0].path}`
             });
           } catch (error) {
             reject("reject upload image");
