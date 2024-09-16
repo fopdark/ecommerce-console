@@ -13,7 +13,10 @@ const layout = {
 
 const WhyChooseUsForm: React.FC<any> = () => {
   const [form] = Form.useForm();
-  const [previewImages, setPreviewImages] = useState<UploadFile[]>();
+  const [previewImages1, setPreviewImages1] = useState<UploadFile[]>();
+  const [previewImages2, setPreviewImages2] = useState<UploadFile[]>();
+  const [previewImages3, setPreviewImages3] = useState<UploadFile[]>();
+  const [previewImages4, setPreviewImages4] = useState<UploadFile[]>();
   const [data, setData] = useState<any>();
 
   const onUpdate = async (values: any) => {
@@ -34,20 +37,12 @@ const WhyChooseUsForm: React.FC<any> = () => {
       //     }),
       //   );
       // }
-      const image1 = await handleUploadFile(values?.advantages1?.img_source);
-      const image2 = await handleUploadFile(values?.advantages1?.img_source);
-      const image3 = await handleUploadFile(values?.advantages1?.img_source);
-      const image4 = await handleUploadFile(values?.advantages1?.img_source);
-      console.log('image1', image1);
-      console.log('image2', image2);
-      console.log('image3', image3);
-      console.log('image4', image4);
+      const image1 = await handleUploadFile(previewImages1);
+      const image2 = await handleUploadFile(previewImages2);
+      const image3 = await handleUploadFile(previewImages3);
+      const image4 = await handleUploadFile(previewImages4);
 
-      // const request = {
-      //   ...values,
-      //   // images: resUploadImages,
-      //   // address: [values?.address],
-      // };
+
       const requestData = {
         _id: data?._id,
         content: values?.content,
@@ -78,37 +73,8 @@ const WhyChooseUsForm: React.FC<any> = () => {
     }
   };
 
-  const onCreate = async (values: any) => {
-    try {
-      let resUploadImages = {};
-      const requestImages = previewImages?.map(
-        (image: UploadFile) => image?.originFileObj,
-      );
-      if (requestImages && requestImages?.length > 0) {
-        resUploadImages = await uploadFiles({
-          files: requestImages,
-        });
-      }
-
-      const request = {
-        ...values,
-        ...resUploadImages,
-        // address: [values?.address],
-      };
-      const res = await create(request);
-      onSuccess();
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const handleUploadFile = async (images: any) => {
-    console.log('Upload event:', images);
-    //   if (Array.isArray(e)) {
-    //     return e;
-    //   }
-    //  return e && e.fileList;
-
     const res = await Promise.all(
       images.map(async (image: any, index: number) => {
         console.log('image', image);
@@ -181,7 +147,7 @@ const WhyChooseUsForm: React.FC<any> = () => {
           }]
         },
         advantages3: {
-          content: res?.advantages[4]?.content,
+          content: res?.advantages[2]?.content,
           // img_source: [getImageUrl(res?.advantages[2]?.img_source?.path)],
           img_source: [{
             ...res?.advantages[2]?.img_source,
@@ -229,7 +195,7 @@ const WhyChooseUsForm: React.FC<any> = () => {
           <UploadImage
             onChange={(images: UploadFile[]) => {
               form.setFieldValue(['advantages1', 'img_source'], images);
-              // setPreviewImages(images);
+              setPreviewImages1(images);
             }}
             data={form.getFieldValue(['advantages1', 'img_source'])}
             limit={1}
@@ -248,7 +214,7 @@ const WhyChooseUsForm: React.FC<any> = () => {
           <UploadImage
             onChange={(images: UploadFile[]) => {
               form.setFieldValue(['advantages2', 'img_source'], images);
-              // setPreviewImages(images);
+              setPreviewImages2(images);
             }}
             data={form.getFieldValue(['advantages2', 'img_source'])}
             limit={1}
@@ -267,7 +233,7 @@ const WhyChooseUsForm: React.FC<any> = () => {
           <UploadImage
             onChange={(images: UploadFile[]) => {
               form.setFieldValue(['advantages3', 'img_source'], images);
-              // setPreviewImages(images);
+              setPreviewImages3(images);
             }}
             data={form.getFieldValue(['advantages3', 'img_source'])}
             limit={1}
@@ -286,7 +252,7 @@ const WhyChooseUsForm: React.FC<any> = () => {
           <UploadImage
             onChange={(images: UploadFile[]) => {
               form.setFieldValue(['advantages4', 'img_source'], images);
-              // setPreviewImages(images);
+              setPreviewImages4(images);
             }}
             data={form.getFieldValue(['advantages4', 'img_source'])}
             limit={1}
