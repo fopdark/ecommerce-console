@@ -1,7 +1,6 @@
 import { API_URL } from "@/constant/ConstantCommon";
 
 export function convertToSlug(str: string) {
-  console.log('str', str)
   if (!str) return '';
   return str
     .normalize('NFD')
@@ -9,6 +8,7 @@ export function convertToSlug(str: string) {
     .replace(/đ/g, 'd')
     .replace(/Đ/g, 'D')
     .replaceAll(' ', '-')
+    .replaceAll(',', '')
     .toLocaleLowerCase();
 }
 

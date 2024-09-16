@@ -58,6 +58,7 @@ const UploadImage: React.FC<Props> = ({ data, onChange, limit = 10 }) => {
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
+        multiple
       >
         {fileList.length >= limit ? null : uploadButton}
       </Upload>

@@ -20,7 +20,7 @@ const ServiceForm: React.FC<any> = ({
 }) => {
   const [form] = Form.useForm();
   const [previewImages, setPreviewImages] = useState<UploadFile[]>();
-  const watchName = Form.useWatch('name', form);
+  const watchTitle = Form.useWatch('title', form);
   const watchSlug = Form.useWatch('slug', form);
   const watchParent = Form.useWatch('parent', form);
 
@@ -78,8 +78,8 @@ const ServiceForm: React.FC<any> = ({
 
   useEffect(() => {
     // if (!watchName) return;
-    form.setFieldValue('slug', convertToSlug(watchName));
-  }, [watchName]);
+    form.setFieldValue('slug', convertToSlug(watchTitle));
+  }, [watchTitle]);
 
   //   useEffect(() => {
   //     // if (!watchLink) return;
@@ -103,7 +103,6 @@ const ServiceForm: React.FC<any> = ({
     if (data?.index) {
       form.setFieldsValue(data);
     }
-    
   }, [data]);
 
   return (
@@ -136,7 +135,7 @@ const ServiceForm: React.FC<any> = ({
           return convertToSlug(event.currentTarget.value);
         }}
       >
-        <Input />
+        <Input disabled />
       </Form.Item>
       <Form.Item name="status" label="Hiển Thị" rules={[{ required: true }]}>
         <Select
