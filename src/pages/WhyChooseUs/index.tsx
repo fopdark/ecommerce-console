@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Flex, Form, Input, UploadFile } from 'antd';
 import { uploadFiles } from '@/services/files';
-import { create, getBenefits, update } from '@/services/why';
+import { getBenefits, update } from '@/services/why';
 import TextArea from 'antd/es/input/TextArea';
 import UploadImage from '@/components/UploadImage';
 import { getImageUrl } from '@/utils/common';

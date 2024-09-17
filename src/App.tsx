@@ -29,6 +29,7 @@ import Policy from './pages/Policy';
 import Project from './pages/Project';
 import WhyChooseUsForm from './pages/WhyChooseUs';
 import SliderPage from './pages/Slider';
+import Feedbacks from './pages/Feedback';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -273,6 +274,15 @@ function App() {
             <>
               <PageTitle title="Slider | DiepKienKuy" />
               <SliderPage />
+            </>
+          }
+        />
+        <Route
+          path="/feedback"
+          element={
+            <>
+              <PageTitle title="Feedback | DiepKienKuy" />
+              <Feedbacks />
             </>
           }
         />
