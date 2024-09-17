@@ -72,6 +72,8 @@ const SliderForm: React.FC<any> = ({ data, onSuccess }) => {
     }
   }, [data]);
 
+  const watchImage = Form.useWatch('image_url', form);
+
   return (
     <Form
       {...layout}
