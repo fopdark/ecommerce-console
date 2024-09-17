@@ -33,6 +33,7 @@ const FeedbackForm: React.FC<any> = ({ data, onSuccess }) => {
         );
       }
       const request = { ...values, iamge_url: resUploadImages?.[0] };
+      delete request.images;
       const res = await updateFeedback(data?._id, request);
       onSuccess();
     } catch (error) {
@@ -68,10 +69,12 @@ const FeedbackForm: React.FC<any> = ({ data, onSuccess }) => {
 
   useEffect(() => {
     if (data?.index) {
-      form.setFieldsValue(data);
-      form.setFieldValue('images', [data?.image_url]);
+      const originalData = { ...data, images: [data?.image_url] };
+      form.setFieldsValue(originalData);
     }
   }, [data]);
+
+  const watchImage = Form.useWatch('images', form);
 
   return (
     <Form
