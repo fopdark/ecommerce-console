@@ -12,33 +12,11 @@ const layout = {
 
 const ContactForm: React.FC<any> = ({ onSuccess }) => {
   const [form] = Form.useForm();
-  const [previewImages, setPreviewImages] = useState<UploadFile[]>();
   const [data, setData] = useState<any>();
 
   const onUpdate = async (values: any) => {
     try {
-      let resUploadImages: any = {};
-      if (previewImages && previewImages?.length > 0) {
-        resUploadImages = [...previewImages];
-        const requestImages = previewImages?.map(
-          (image: UploadFile) => image?.originFileObj,
-        );
-        await Promise.all(
-          requestImages.map(async (image: any, index: number) => {
-            if (!image) return;
-            const res = await uploadFiles({
-              files: [image],
-            });
-            resUploadImages[index] = res?.images?.[0];
-          }),
-        );
-      }
-      const request = {
-        ...values,
-        images: resUploadImages,
-        // address: [values?.address],
-      };
-      const res = await update(data?._id, request);
+      await update(data?._id, values);
       onSuccess();
     } catch (error) {
       console.log(error);

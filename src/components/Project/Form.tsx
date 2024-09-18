@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Button,
-  ColorPicker,
-  Flex,
   Form,
   Input,
   Select,
@@ -11,9 +8,8 @@ import {
 import CKEditorComponent from '../CKEditor';
 import TextArea from 'antd/es/input/TextArea';
 import { PUBLIC_DOMAIN } from '@/constant/ConstantCommon';
-import { convertToSlug } from '@/utils/common';
+import { convertToSlug, handleUploadFile } from '@/utils/common';
 import UploadImage from '../UploadImage';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { uploadFiles } from '@/services/files';
 import { create, update } from '@/services/project';
 
@@ -27,24 +23,16 @@ const ProjectForm: React.FC<any> = ({ data, onSuccess }) => {
   const [previewImages, setPreviewImages] = useState<UploadFile[]>();
   const watchTitle = Form.useWatch('title', form);
   const watchSlug = Form.useWatch('slug', form);
-  const watchLink = Form.useWatch('link', form);
 
   const onUpdate = async (values: any) => {
-    // console.log({ ...values, link: convertToSlug(values?.link), slug: 'slug' });
     try {
-      let resUploadImages: any = {};
+      let resUploadImages: any = [];
       if (previewImages && previewImages?.length > 0) {
-        resUploadImages = [...previewImages];
-        const requestImages = previewImages?.map(
-          (image: UploadFile) => image?.originFileObj,
-        );
         await Promise.all(
-          requestImages.map(async (image: any, index: number) => {
-            if (!image) return;
-            const res = await uploadFiles({
-              files: [image],
-            });
-            resUploadImages[index] = res?.images?.[0];
+          previewImages.map(async (element, index) => {
+            const image = await handleUploadFile([element]);
+            resUploadImages[index] = image;
+            return resUploadImages;
           }),
         );
       }
@@ -81,23 +69,14 @@ const ProjectForm: React.FC<any> = ({ data, onSuccess }) => {
     }
   };
   useEffect(() => {
-    // if (!watchName) return;
     form.setFieldValue('slug', convertToSlug(watchTitle));
   }, [watchTitle]);
 
-  //   useEffect(() => {
-  //     // if (!watchLink) return;
-  //     const index  = watchLink?.lastIndexOf("/")
-  // console.log("index", index, watchLink?.slice(index+1))
-  //     const slug = watchLink?.slice(index+1)
-  //     form.setFieldValue('slug', convertToSlug(slug));
-
-  //   }, [watchLink]);
-
   useEffect(() => {
-    // console.log(watchSlug)
-    // if(!watchSlug) return
-    form.setFieldValue('link', `${PUBLIC_DOMAIN}/projects/${convertToSlug(watchSlug)}`);
+    form.setFieldValue(
+      'link',
+      `${PUBLIC_DOMAIN}/projects/${convertToSlug(watchSlug)}`,
+    );
   }, [watchSlug]);
 
   useEffect(() => {
@@ -149,34 +128,6 @@ const ProjectForm: React.FC<any> = ({ data, onSuccess }) => {
       <Form.Item name="title" label="Tên" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
-      {/* <Form.Item name="colors" label="Màu" rules={[{ required: true }]}>
-        <Form.List name="colors">
-          {(fields, { add, remove }) => (
-            <Flex gap={10}>
-              {fields.map((field, index) => (
-                <Form.Item key={index}>
-                  <Flex align="center" className="test" gap={5}>
-                    <Form.Item
-                      className="mb-0"
-                      rules={[{ required: true }]}
-                      {...field}
-                      getValueFromEvent={(color) => {
-                        return '#' + color.toHex();
-                      }}
-                      children={<ColorPicker />}
-                    />
-                    <MinusCircleOutlined onClick={() => remove(field.name)} />
-                  </Flex>
-                </Form.Item>
-              ))}
-
-              <Form.Item className="mb-0">
-                <Button onClick={() => add(null)} icon={<PlusOutlined />} />
-              </Form.Item>
-            </Flex>
-          )}
-        </Form.List>
-      </Form.Item> */}
       <Form.Item name="description" label="Mô tả" rules={[{ required: true }]}>
         <TextArea rows={4} />
       </Form.Item>

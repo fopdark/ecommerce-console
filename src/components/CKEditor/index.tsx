@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {
   ClassicEditor,
@@ -20,13 +19,7 @@ import {
   ImageResize,
   ImageUpload,
   ImageInsert,
-  ImageInsertUI,
-  ImageElementSupport,
   ImageStyle,
-  ImageEditing,
-  ImageStyleUI,
-  ImageBlock,
-  ImageToolbar,
   AutoImage,
   ImageCaption,
   Alignment,
@@ -37,7 +30,6 @@ import {
 
 import 'ckeditor5/ckeditor5.css';
 import './style.css';
-import axios from 'axios';
 import { API_URL } from '@/constant/ConstantCommon';
 import { uploadFiles } from '@/services/files';
 

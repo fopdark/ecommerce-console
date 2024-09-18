@@ -4,6 +4,7 @@ import TextArea from 'antd/es/input/TextArea';
 import UploadImage from '../UploadImage';
 import { uploadFiles } from '@/services/files';
 import { createFeedback, updateFeedback } from '@/services/feedback';
+import { handleUploadFile } from '@/utils/common';
 
 const layout = {
   labelCol: { span: 8 },
@@ -16,19 +17,29 @@ const FeedbackForm: React.FC<any> = ({ data, onSuccess }) => {
 
   const onUpdate = async (values: any) => {
     try {
-      let resUploadImages: any = {};
+      // let resUploadImages: any = {};
+      // if (previewImages && previewImages?.length > 0) {
+      //   resUploadImages = [...previewImages];
+      //   const requestImages = previewImages?.map(
+      //     (image: UploadFile) => image?.originFileObj,
+      //   );
+      //   await Promise.all(
+      //     requestImages.map(async (image: any, index: number) => {
+      //       if (!image) return;
+      //       const res = await uploadFiles({
+      //         files: [image],
+      //       });
+      //       resUploadImages[index] = res?.images?.[0];
+      //     }),
+      //   );
+      // }
+      let resUploadImages: any = [];
       if (previewImages && previewImages?.length > 0) {
-        resUploadImages = [...previewImages];
-        const requestImages = previewImages?.map(
-          (image: UploadFile) => image?.originFileObj,
-        );
         await Promise.all(
-          requestImages.map(async (image: any, index: number) => {
-            if (!image) return;
-            const res = await uploadFiles({
-              files: [image],
-            });
-            resUploadImages[index] = res?.images?.[0];
+          previewImages.map(async (element, index) => {
+            const image = await handleUploadFile([element]);
+            resUploadImages[index] = image;
+            return resUploadImages;
           }),
         );
       }

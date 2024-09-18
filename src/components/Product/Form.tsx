@@ -11,7 +11,7 @@ import {
 import CKEditorComponent from '../CKEditor';
 import TextArea from 'antd/es/input/TextArea';
 import { PUBLIC_DOMAIN } from '@/constant/ConstantCommon';
-import { convertToSlug } from '@/utils/common';
+import { convertToSlug, handleUploadFile } from '@/utils/common';
 import UploadImage from '../UploadImage';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { uploadFiles } from '@/services/files';
@@ -32,19 +32,28 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
   const onUpdate = async (values: any) => {
     // console.log({ ...values, link: convertToSlug(values?.link), slug: 'slug' });
     try {
-      let resUploadImages: any = {};
+      // if (previewImages && previewImages?.length > 0) {
+      //   resUploadImages = [...previewImages];
+      //   const requestImages = previewImages?.map(
+      //     (image: UploadFile) => image?.originFileObj,
+      //   );
+      //   await Promise.all(
+      //     requestImages.map(async (image: any, index: number) => {
+      //       if (!image) return;
+      //       const res = await uploadFiles({
+      //         files: [image],
+      //       });
+      //       resUploadImages[index] = res?.images?.[0];
+      //     }),
+      //   );
+      // }
+      let resUploadImages: any = [];
       if (previewImages && previewImages?.length > 0) {
-        resUploadImages = [...previewImages];
-        const requestImages = previewImages?.map(
-          (image: UploadFile) => image?.originFileObj,
-        );
         await Promise.all(
-          requestImages.map(async (image: any, index: number) => {
-            if (!image) return;
-            const res = await uploadFiles({
-              files: [image],
-            });
-            resUploadImages[index] = res?.images?.[0];
+          previewImages.map(async (element, index) => {
+            const image = await handleUploadFile([element]);
+            resUploadImages[index] = image;
+            return resUploadImages;
           }),
         );
       }
@@ -97,7 +106,10 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
   useEffect(() => {
     // console.log(watchSlug)
     // if(!watchSlug) return
-    form.setFieldValue('link', `${PUBLIC_DOMAIN}/products/${convertToSlug(watchSlug)}`);
+    form.setFieldValue(
+      'link',
+      `${PUBLIC_DOMAIN}/products/${convertToSlug(watchSlug)}`,
+    );
   }, [watchSlug]);
 
   useEffect(() => {
@@ -136,7 +148,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
           return convertToSlug(event.currentTarget.value);
         }}
       >
-        <Input disabled/>
+        <Input disabled />
       </Form.Item>
       <Form.Item name="status" label="Hiển Thị" rules={[{ required: true }]}>
         <Select

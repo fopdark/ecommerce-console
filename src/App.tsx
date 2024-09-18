@@ -30,6 +30,7 @@ import Project from './pages/Project';
 import WhyChooseUsForm from './pages/WhyChooseUs';
 import SliderPage from './pages/Slider';
 import Feedbacks from './pages/Feedback';
+import SettingForm from './pages/Setting';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -165,7 +166,7 @@ function App() {
           element={
             <>
               <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-              <Settings />
+              <SettingForm />
             </>
           }
         />

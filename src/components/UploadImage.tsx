@@ -39,8 +39,11 @@ const UploadImage: React.FC<Props> = ({ data, onChange, limit = 10 }) => {
   };
 
   useEffect(() => {
-    console.log('UploadImage data: ', data)
-    if (data?.length > 0) setFileList(data);
+    console.log('UploadImage data: ', data);
+    if (data?.length > 0) {
+      setFileList(data);
+      onChange(data);
+    }
   }, [data]);
 
   const uploadButton = (

@@ -105,7 +105,7 @@ const ProfileForm: React.FC = () => {
         rules={[{ required: true }]}
       >
         <UploadImage/>
-      </Form.Item>
+      </Form.Item>*/}
       <div className="px-2">
         <h2>SEO</h2>
         <Form.Item
@@ -139,7 +139,7 @@ const ProfileForm: React.FC = () => {
         >
           <TextArea rows={4} />
         </Form.Item>
-      </div> */}
+      </div> 
       <div className="flex justify-end gap-4">
         <Button htmlType="button" onClick={onFill}>
           Hủy

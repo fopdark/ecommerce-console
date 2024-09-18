@@ -3,7 +3,7 @@ import { Form, Input, Select, UploadFile } from 'antd';
 import CKEditorComponent from '../CKEditor';
 import TextArea from 'antd/es/input/TextArea';
 import { PUBLIC_DOMAIN } from '@/constant/ConstantCommon';
-import { convertToSlug } from '@/utils/common';
+import { convertToSlug, handleUploadFile } from '@/utils/common';
 import UploadImage from '../UploadImage';
 import { uploadFiles } from '@/services/files';
 import { create, update } from '@/services/service';
@@ -24,19 +24,29 @@ const ServiceFormLevel1: React.FC<any> = ({
 
   const onUpdate = async (values: any) => {
     try {
-      let resUploadImages: any = {};
+      // let resUploadImages: any = {};
+      // if (previewImages && previewImages?.length > 0) {
+      //   resUploadImages = [...previewImages];
+      //   const requestImages = previewImages?.map(
+      //     (image: UploadFile) => image?.originFileObj,
+      //   );
+      //   await Promise.all(
+      //     requestImages.map(async (image: any, index: number) => {
+      //       if (!image) return;
+      //       const res = await uploadFiles({
+      //         files: [image],
+      //       });
+      //       resUploadImages[index] = res?.images?.[0];
+      //     }),
+      //   );
+      // }
+      let resUploadImages: any = [];
       if (previewImages && previewImages?.length > 0) {
-        resUploadImages = [...previewImages];
-        const requestImages = previewImages?.map(
-          (image: UploadFile) => image?.originFileObj,
-        );
         await Promise.all(
-          requestImages.map(async (image: any, index: number) => {
-            if (!image) return;
-            const res = await uploadFiles({
-              files: [image],
-            });
-            resUploadImages[index] = res?.images?.[0];
+          previewImages.map(async (element, index) => {
+            const image = await handleUploadFile([element]);
+            resUploadImages[index] = image;
+            return resUploadImages;
           }),
         );
       }

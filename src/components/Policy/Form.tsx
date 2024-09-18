@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, UploadFile } from 'antd';
+import React, { useEffect } from 'react';
+import { Form, Input, Select } from 'antd';
 import CKEditorComponent from '../CKEditor';
 import TextArea from 'antd/es/input/TextArea';
 import { PUBLIC_DOMAIN } from '@/constant/ConstantCommon';
 import { convertToSlug } from '@/utils/common';
-import { uploadFiles } from '@/services/files';
 import { create, update } from '@/services/policy';
 
 const layout = {
@@ -14,30 +13,12 @@ const layout = {
 
 const PolicyForm: React.FC<any> = ({ data, onSuccess }) => {
   const [form] = Form.useForm();
-  const [previewImages, setPreviewImages] = useState<UploadFile[]>();
   const watchTitle = Form.useWatch('title', form);
   const watchSlug = Form.useWatch('slug', form);
 
   const onUpdate = async (values: any) => {
     try {
-      let resUploadImages: any = {};
-      if (previewImages && previewImages?.length > 0) {
-        resUploadImages = [...previewImages];
-        const requestImages = previewImages?.map(
-          (image: UploadFile) => image?.originFileObj,
-        );
-        await Promise.all(
-          requestImages.map(async (image: any, index: number) => {
-            if (!image) return;
-            const res = await uploadFiles({
-              files: [image],
-            });
-            resUploadImages[index] = res?.images?.[0];
-          }),
-        );
-      }
-      const request = { ...values, images: resUploadImages };
-      const res = await update(data?._id, request);
+      await update(data?._id, values);
       onSuccess();
     } catch (error) {
       console.log(error);
@@ -46,15 +27,7 @@ const PolicyForm: React.FC<any> = ({ data, onSuccess }) => {
 
   const onCreate = async (values: any) => {
     try {
-      let resUploadImages = {};
-      // const requestImages = previewImages?.map(
-      //   (image: UploadFile) => image?.originFileObj,
-      // );
-      // resUploadImages = await uploadFiles({
-      //   files: requestImages,
-      // });
-      const request = { ...values, ...resUploadImages };
-      const res = await create(request);
+      await create(values);
       onSuccess();
     } catch (error) {
       console.log(error);
@@ -69,22 +42,10 @@ const PolicyForm: React.FC<any> = ({ data, onSuccess }) => {
     }
   };
   useEffect(() => {
-    // if (!watchName) return;
     form.setFieldValue('slug', convertToSlug(watchTitle));
   }, [watchTitle]);
 
-  //   useEffect(() => {
-  //     // if (!watchLink) return;
-  //     const index  = watchLink?.lastIndexOf("/")
-  // console.log("index", index, watchLink?.slice(index+1))
-  //     const slug = watchLink?.slice(index+1)
-  //     form.setFieldValue('slug', convertToSlug(slug));
-
-  //   }, [watchLink]);
-
   useEffect(() => {
-    // console.log(watchSlug)
-    // if(!watchSlug) return
     form.setFieldValue(
       'link',
       `${PUBLIC_DOMAIN}/policy/${convertToSlug(watchSlug)}`,

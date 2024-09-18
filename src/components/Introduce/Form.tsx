@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Flex, Form, Input, Select, UploadFile } from 'antd';
+import React, { useEffect } from 'react';
+import { Button, Flex, Form, Input, Select } from 'antd';
 import CKEditorComponent from '../CKEditor';
 import TextArea from 'antd/es/input/TextArea';
-import UploadImage from '../UploadImage';
-import { uploadFiles } from '@/services/files';
 import { create, update } from '@/services/introduce';
 
 const layout = {
@@ -13,28 +11,9 @@ const layout = {
 
 const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
   const [form] = Form.useForm();
-  const [previewImages, setPreviewImages] = useState<UploadFile[]>();
-
   const onUpdate = async (values: any) => {
     try {
-      let resUploadImages: any = {};
-      if (previewImages && previewImages?.length > 0) {
-        resUploadImages = [...previewImages];
-        const requestImages = previewImages?.map(
-          (image: UploadFile) => image?.originFileObj,
-        );
-        await Promise.all(
-          requestImages.map(async (image: any, index: number) => {
-            if (!image) return;
-            const res = await uploadFiles({
-              files: [image],
-            });
-            resUploadImages[index] = res?.images?.[0];
-          }),
-        );
-      }
-      const request = { ...values, images: resUploadImages };
-      const res = await update(data?._id, request);
+      const res = await update(data?._id, values);
       onSuccess();
     } catch (error) {
       console.log(error);
@@ -43,18 +22,7 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
 
   const onCreate = async (values: any) => {
     try {
-      let resUploadImages = {};
-      const requestImages = previewImages?.map(
-        (image: UploadFile) => image?.originFileObj,
-      );
-      if (requestImages && requestImages?.length > 0) {
-        resUploadImages = await uploadFiles({
-          files: requestImages,
-        });
-      }
-
-      const request = { ...values, ...resUploadImages };
-      const res = await create(request);
+      const res = await create(values);
       onSuccess();
     } catch (error) {
       console.log(error);
@@ -102,15 +70,6 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
           onChange={(value: any) => form.setFieldValue('content', value)}
         />
       </Form.Item>
-      {/* <Form.Item name="images" label="Hình ảnh" rules={[{ required: false }]}>
-        <UploadImage
-          onChange={(images: UploadFile[]) => {
-            form.setFieldValue('images', images);
-            setPreviewImages(images);
-          }}
-          data={form.getFieldValue('images')}
-        />
-      </Form.Item> */}
       <div className="px-2">
         <h2>SEO</h2>
         <Form.Item
