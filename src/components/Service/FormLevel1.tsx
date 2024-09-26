@@ -13,10 +13,7 @@ const layout = {
   wrapperCol: { span: 16 },
 };
 
-const ServiceFormLevel1: React.FC<any> = ({
-  data,
-  onSuccess,
-}) => {
+const ServiceFormLevel1: React.FC<any> = ({ data, onSuccess }) => {
   const [form] = Form.useForm();
   const [previewImages, setPreviewImages] = useState<UploadFile[]>();
   const watchTitle = Form.useWatch('title', form);
@@ -115,6 +112,7 @@ const ServiceFormLevel1: React.FC<any> = ({
   return (
     <Form
       {...layout}
+      initialValues={{ status: 1 }}
       form={form}
       name="control-hooks"
       onFinish={onFinish}
@@ -124,7 +122,7 @@ const ServiceFormLevel1: React.FC<any> = ({
       className="pt-5 max-h-[80vh] overflow-y-auto"
       id="serviceForm"
     >
-      <Form.Item name="index" label="Số thứ tự" rules={[{ required: true }]}>
+      <Form.Item name="index" label="Số thứ tự" rules={[{ required: false }]}>
         <Input />
       </Form.Item>
       <Form.Item

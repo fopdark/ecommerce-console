@@ -1,9 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-  Form,
-  Input,
-  Select,
-} from 'antd';
+import { Form, Input, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { create, update } from '@/services/customer';
 
@@ -17,7 +13,7 @@ const CustomerForm: React.FC<any> = ({ data, onSuccess }) => {
 
   const onFinish = async (values: any) => {
     try {
-      if (data?.index) {
+      if (data?._id) {
         await update(data?._id, values);
       } else {
         await create(values);
@@ -28,7 +24,7 @@ const CustomerForm: React.FC<any> = ({ data, onSuccess }) => {
     }
   };
   useEffect(() => {
-    if (data?.index) {
+    if (data?._id) {
       form.setFieldsValue(data);
     }
   }, [data]);
@@ -36,6 +32,7 @@ const CustomerForm: React.FC<any> = ({ data, onSuccess }) => {
   return (
     <Form
       {...layout}
+      initialValues={{ status: 1 }}
       form={form}
       name="control-hooks"
       onFinish={onFinish}
@@ -45,10 +42,10 @@ const CustomerForm: React.FC<any> = ({ data, onSuccess }) => {
       className="pt-5 max-h-[80vh] overflow-y-auto"
       id="customerForm"
     >
-      <Form.Item name="index" label="Số thứ tự" rules={[{ required: true }]}>
+      <Form.Item name="index" label="Số thứ tự" rules={[{ required: false }]}>
         <Input />
       </Form.Item>
-      <Form.Item name="status" label="Hiển Thị" rules={[{ required: true }]}>
+      <Form.Item name="status" label="Trạng thái" rules={[{ required: true }]}>
         <Select
           options={[
             { value: 0, label: 'Đang chờ duyêt' },

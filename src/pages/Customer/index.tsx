@@ -134,6 +134,7 @@ const Customer: React.FC = () => {
         title="Thông tin khách hàng"
         centered
         open={modalOpen}
+        destroyOnClose
         // onOk={() => setModalOpen(false)}
         // onCancel={() => setModalOpen(false)}
         width={1000}
@@ -173,7 +174,7 @@ const Customer: React.FC = () => {
           Tạo
         </Button>
       </Flex>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={data} rowKey="_id" />
     </>
   );
 };

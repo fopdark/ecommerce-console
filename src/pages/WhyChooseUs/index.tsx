@@ -116,6 +116,7 @@ const WhyChooseUsForm: React.FC<any> = () => {
       <Breadcrumb pageName="Vì sao chọn chúng tôi" />
       <Form
         {...layout}
+        initialValues={{ status: 1 }}
         form={form}
         name="control-hooks"
         onFinish={onFinish}

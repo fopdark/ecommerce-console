@@ -1,35 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import Breadcrumb from '@/components/Breadcrumbs/Breadcrumb';
-import IntroduceForm from '@/components/Introduce/Form';
-import { getList } from '@/services/introduce';
+import { getList } from '@/services/advise';
+import AdviseForm from '@/components/Advise/Form';
 
-const IntroduceList: React.FC = () => {
+const AdviseList: React.FC = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [data, setData] = useState([]);
   const [selectedRow, setSelectedRow] = useState<any>();
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
 
   const handleGetList = async () => {
     try {
       const res = await getList({});
-      console.log('res', res);
       setData(res);
       setSelectedRow(res);
     } catch (error) {
       console.log(error);
     }
   };
-  
   useEffect(() => {
     handleGetList();
   }, []);
 
   return (
     <>
-      <Breadcrumb pageName="Giới thiệu" />
-      <IntroduceForm
+      <Breadcrumb pageName="Tư Vấn" />
+      <AdviseForm
         data={selectedRow}
         onSuccess={() => {
           setModalOpen(false);
@@ -40,4 +35,4 @@ const IntroduceList: React.FC = () => {
   );
 };
 
-export default IntroduceList;
+export default AdviseList;

@@ -61,6 +61,7 @@ const ProfileForm: React.FC = () => {
   return (
     <Form
       {...layout}
+      initialValues={{ status: 1 }}
       form={form}
       name="control-hooks"
       onFinish={onFinish}
@@ -74,7 +75,7 @@ const ProfileForm: React.FC = () => {
           <Input />
         </Form.Item>
       ))}
-      {/* <Form.Item name="index" label="Số thứ tự" rules={[{ required: true }]}>
+      {/* <Form.Item name="index" label="Số thứ tự" rules={[{ required: false }]}>
         <Input />
       </Form.Item>
       <Form.Item name="name" label="Tên" rules={[{ required: true }]}>
@@ -139,7 +140,7 @@ const ProfileForm: React.FC = () => {
         >
           <TextArea rows={4} />
         </Form.Item>
-      </div> 
+      </div>
       <div className="flex justify-end gap-4">
         <Button htmlType="button" onClick={onFill}>
           Hủy

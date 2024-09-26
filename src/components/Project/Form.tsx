@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  Form,
-  Input,
-  Select,
-  UploadFile,
-} from 'antd';
+import { Form, Input, Select, UploadFile } from 'antd';
 import CKEditorComponent from '../CKEditor';
 import TextArea from 'antd/es/input/TextArea';
 import { PUBLIC_DOMAIN } from '@/constant/ConstantCommon';
@@ -88,6 +83,7 @@ const ProjectForm: React.FC<any> = ({ data, onSuccess }) => {
   return (
     <Form
       {...layout}
+      initialValues={{ status: 1 }}
       form={form}
       name="control-hooks"
       onFinish={onFinish}
@@ -97,7 +93,7 @@ const ProjectForm: React.FC<any> = ({ data, onSuccess }) => {
       className="pt-5 max-h-[80vh] overflow-y-auto"
       id="projectForm"
     >
-      <Form.Item name="index" label="Số thứ tự" rules={[{ required: true }]}>
+      <Form.Item name="index" label="Số thứ tự" rules={[{ required: false }]}>
         <Input />
       </Form.Item>
       <Form.Item

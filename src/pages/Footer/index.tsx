@@ -54,6 +54,7 @@ const FooterForm: React.FC<any> = ({ isParent }) => {
       <Breadcrumb pageName="Footer" />
       <Form
         {...layout}
+        initialValues={{ status: 1 }}
         form={form}
         name="control-hooks"
         onFinish={onFinish}

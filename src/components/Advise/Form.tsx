@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { Button, Flex, Form, Input, Select } from 'antd';
 import CKEditorComponent from '../CKEditor';
 import TextArea from 'antd/es/input/TextArea';
-import { create, update } from '@/services/introduce';
+import { create, update } from '@/services/advise';
 
 const layout = {
   labelCol: { span: 8 },
   wrapperCol: { span: 16 },
 };
 
-const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
+const AdviseForm: React.FC<any> = ({ data, onSuccess }) => {
   const [form] = Form.useForm();
   const onUpdate = async (values: any) => {
     try {
@@ -53,7 +53,7 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
       labelCol={{ span: 4 }}
       wrapperCol={{ span: 20 }}
       className="pt-5 overflow-y-auto"
-      id="introduceForm"
+      id="adviseForm"
     >
       <Form.Item name="status" label="Hiển Thị" rules={[{ required: false }]}>
         <Select
@@ -111,12 +111,7 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
       </div>
       <Flex justify="end" gap={10}>
         {/* <Button onClick={() => setModalOpen(false)}>Hủy</Button> */}
-        <Button
-          form="introduceForm"
-          key="submit"
-          htmlType="submit"
-          type="primary"
-        >
+        <Button form="adviseForm" key="submit" htmlType="submit" type="primary">
           Đồng ý
         </Button>
       </Flex>
@@ -124,4 +119,4 @@ const IntroduceForm: React.FC<any> = ({ data, onSuccess }) => {
   );
 };
 
-export default IntroduceForm;
+export default AdviseForm;

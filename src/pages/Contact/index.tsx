@@ -77,6 +77,7 @@ const ContactForm: React.FC<any> = ({ onSuccess }) => {
   return (
     <Form
       {...layout}
+      initialValues={{ status: 1 }}
       form={form}
       name="control-hooks"
       onFinish={onFinish}

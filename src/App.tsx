@@ -31,6 +31,7 @@ import WhyChooseUsForm from './pages/WhyChooseUs';
 import SliderPage from './pages/Slider';
 import Feedbacks from './pages/Feedback';
 import SettingForm from './pages/Setting';
+import AdviseList from './pages/Advise';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -221,6 +222,15 @@ function App() {
             <>
               <PageTitle title="Introduce | DiepKienKuy" />
               <IntroduceList />
+            </>
+          }
+        />
+        <Route
+          path="/advise"
+          element={
+            <>
+              <PageTitle title="Advise | DiepKienKuy" />
+              <AdviseList />
             </>
           }
         />

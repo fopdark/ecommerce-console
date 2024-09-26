@@ -118,6 +118,7 @@ const ServiceForm: React.FC<any> = ({
   return (
     <Form
       {...layout}
+      initialValues={{ status: 1 }}
       form={form}
       name="control-hooks"
       onFinish={onFinish}
@@ -127,7 +128,7 @@ const ServiceForm: React.FC<any> = ({
       className="pt-5 max-h-[80vh] overflow-y-auto"
       id="serviceForm"
     >
-      <Form.Item name="index" label="Số thứ tự" rules={[{ required: true }]}>
+      <Form.Item name="index" label="Số thứ tự" rules={[{ required: false }]}>
         <Input />
       </Form.Item>
       <Form.Item

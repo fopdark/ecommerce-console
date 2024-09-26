@@ -121,6 +121,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
   return (
     <Form
       {...layout}
+      initialValues={{ status: 1 }}
       form={form}
       name="control-hooks"
       onFinish={onFinish}
@@ -130,7 +131,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
       className="pt-5 max-h-[80vh] overflow-y-auto"
       id="productForm"
     >
-      <Form.Item name="index" label="Số thứ tự" rules={[{ required: true }]}>
+      <Form.Item name="index" label="Số thứ tự" rules={[{ required: false }]}>
         <Input />
       </Form.Item>
       <Form.Item
