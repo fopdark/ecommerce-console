@@ -105,7 +105,7 @@ const ServiceForm: React.FC<any> = ({
     // if(!watchSlug) return
     form.setFieldValue(
       'link',
-      `${PUBLIC_DOMAIN}/services/${watchParent}/${convertToSlug(watchSlug)}`,
+      `${PUBLIC_DOMAIN}/dich-vu/${watchParent}/${convertToSlug(watchSlug)}`,
     );
   }, [watchSlug]);
 

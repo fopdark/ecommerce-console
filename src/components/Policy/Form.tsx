@@ -48,7 +48,7 @@ const PolicyForm: React.FC<any> = ({ data, onSuccess }) => {
   useEffect(() => {
     form.setFieldValue(
       'link',
-      `${PUBLIC_DOMAIN}/policy/${convertToSlug(watchSlug)}`,
+      `${PUBLIC_DOMAIN}/chinh-sach/${convertToSlug(watchSlug)}`,
     );
   }, [watchSlug]);
 

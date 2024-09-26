@@ -108,7 +108,7 @@ const ProductForm: React.FC<any> = ({ data, onSuccess }) => {
     // if(!watchSlug) return
     form.setFieldValue(
       'link',
-      `${PUBLIC_DOMAIN}/products/${convertToSlug(watchSlug)}`,
+      `${PUBLIC_DOMAIN}/san-pham/${convertToSlug(watchSlug)}`,
     );
   }, [watchSlug]);
 

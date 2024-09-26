@@ -99,7 +99,7 @@ const ServiceFormLevel1: React.FC<any> = ({ data, onSuccess }) => {
     // if(!watchSlug) return
     form.setFieldValue(
       'link',
-      `${PUBLIC_DOMAIN}/services/${convertToSlug(watchSlug)}`,
+      `${PUBLIC_DOMAIN}/dich-vu/${convertToSlug(watchSlug)}`,
     );
   }, [watchSlug]);
 

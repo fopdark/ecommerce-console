@@ -70,7 +70,7 @@ const ProjectForm: React.FC<any> = ({ data, onSuccess }) => {
   useEffect(() => {
     form.setFieldValue(
       'link',
-      `${PUBLIC_DOMAIN}/projects/${convertToSlug(watchSlug)}`,
+      `${PUBLIC_DOMAIN}/du-an/${convertToSlug(watchSlug)}`,
     );
   }, [watchSlug]);
 
